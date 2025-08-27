@@ -1,9 +1,17 @@
-@import "fonts";
+@use "fonts";
 
 :root {
   --dark-color: #000000;
   --light-color: #FFFFFF;
   --primary-color: #AE7AFF;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -20,7 +28,6 @@ body {
   font-weight: 700;
   line-height: 16px;
   display: inline;
-  margin-right: 4px;
 }
 
 .btn {
