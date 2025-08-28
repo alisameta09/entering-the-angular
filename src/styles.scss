@@ -1,4 +1,5 @@
 @use "fonts";
+@use "margins";
 
 :root {
   --dark-color: #000000;
@@ -18,6 +19,7 @@ body {
   font-family: 'JetBrains Mono', sans-serif;
   background: var(--dark-color);
   color: var(--light-color);
+  background-image: url(/assets/images/background.png);
 }
 
 .skill-tag {
@@ -31,13 +33,22 @@ body {
 }
 
 .btn {
-  border: none;
+  width: 100%;
   background: var(--primary-color);
   color: var(--dark-color);
   padding: 10px 20px;
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
+  cursor: pointer;
+  border-radius: 2px;
+  border: 1px solid var(--dark-color);
+}
+
+.h1 {
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 56px;
 }
 
 .h6 {
@@ -50,4 +61,26 @@ body {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+}
+
+.tt-control-label {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  display: block;
+}
+
+.tt-input {
+  width: 100%;
+  margin-top: 8px;
+  display: block;
+  border: 1px solid var(--light-color);
+  border-radius: 2px;
+  padding: 12px 20px;
+  background: var(--dark-color);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  font-family: 'JetBrains Mono', sans-serif;
+  color: var(--light-color);
 }
