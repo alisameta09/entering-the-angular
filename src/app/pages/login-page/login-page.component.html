@@ -16,7 +16,8 @@
       formControlName="username"
     >
       <button
-        class="username-telegram-btn sign"
+        class="username-telegram-btn icon"
+        type="button"
       >
         <svg width="21" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -40,9 +41,10 @@
     >
 
       <button
-        class="password-eye-btn sign"
+        class="password-eye-btn icon"
         [class.active]="isPasswordVisible()"
         (click)="isPasswordVisible.set(!isPasswordVisible())"
+        type="button"
       >
         <svg width="21" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
           <path
