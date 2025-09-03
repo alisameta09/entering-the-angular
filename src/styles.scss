@@ -5,6 +5,7 @@
   --dark-color: #000000;
   --light-color: #FFFFFF;
   --primary-color: #AE7AFF;
+  --dark-hover-color: #161616;
 }
 
 *,
@@ -16,6 +17,7 @@
 }
 
 body {
+  height: 100dvh;
   font-family: 'JetBrains Mono', sans-serif;
   background: var(--dark-color);
   color: var(--light-color);
