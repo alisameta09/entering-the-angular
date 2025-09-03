@@ -1,0 +1,101 @@
+:host {
+  display: block;
+  padding: 20px 12px;
+  position: relative;
+  background: var(--dark-color);
+}
+
+.main-menu-list {
+  display: grid;
+  grid-gap: 8px;
+  list-style: none;
+}
+
+.menu-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--light-color);
+  display: grid;
+  grid-template-columns: 16px 1fr max-content;
+  align-items: center;
+  text-align: left;
+  grid-gap: 16px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  width: 100%;
+  border-radius: 2px;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--light-hover-color);
+    color: var(--primary-color);
+
+    .menu-icon {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.menu-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.medium-text {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.to-subscribers {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.to-subscribers-link {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.subscribers-icon {
+  color: var(--primary-color);
+}
+
+.sidebar__footer {
+  width: 276px;
+  height: 40px;
+  display: grid;
+  grid-template-columns: 32px 1fr 14px;
+  background: var(--dark-hover-color);
+  padding: 4px 16px;
+  border-radius: 2px;
+  grid-gap: 12px;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+}
+
+.sidebar-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.sidebar-username {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--primary-color);
+}
+
+.sidebar-settings-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--primary-color);
+}
