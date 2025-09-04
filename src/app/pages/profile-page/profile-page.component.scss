@@ -1,0 +1,21 @@
+.profile-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.to-settings-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 174px;
+  height: 44px;
+  text-decoration: none;
+  border: none;
+}
+
+.to-settings-icon {
+  width: 16px;
+  height: 16px;
+}
+
