@@ -19,3 +19,68 @@
   height: 16px;
 }
 
+.profile-page__body {
+  display: grid;
+  grid-gap: 64px;
+  grid-template-columns: 1fr 340px;
+}
+
+.subscribers-header {
+  width: 292px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.subscribers-badge {
+  width: 26px;
+  height: 18px;
+  padding: 1px 5px;
+  background: var(--green-color);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--dark-color);
+}
+
+.subscribers-wrapper {
+  width: 284px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.subscriber-avatar-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.to-subscribers-search {
+  border-radius: 50%;
+  background: var(--light-color);
+  width: 16px;
+  height: 16px;
+  position: relative;
+  margin-left: 8px;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 8px;
+    background: var(--dark-color);
+    top: 50%;
+    left: 50%;
+  }
+
+  &:before {
+    transform: translateY(-50%) translateX(-50%);
+  }
+
+  &:after {
+    transform: translateY(-50%) translateX(-50%) rotate(90deg);
+  }
+}

@@ -11,5 +11,32 @@
     </a>
   </header>
 
+  <main class="profile-page__body">
+    <div class="my-profile-wall"></div>
+
+    <div>
+      <div class="subscribers-header mb16">
+      <h3 class="h6">Подписчики</h3>
+      <div class="subscribers-badge">28
+      </div>
+      </div>
+
+      <div class="subscribers-wrapper mb32">
+        @for (subscriber of subscribers$ | async; track subscriber.id) {
+          <a [routerLink]="['/profile', subscriber.id]">
+            <img
+              [src]="subscriber.avatarUrl | imgUrl"
+              alt="Фото подписчика"
+              class="subscriber-avatar-btn"/>
+          </a>
+        }
+        <a [routerLink]="['/search']" class="to-subscribers-search">
+        </a>
+      </div>
+
+
+    </div>
+  </main>
+
 }
 
