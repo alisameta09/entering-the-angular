@@ -84,3 +84,10 @@
     transform: translateY(-50%) translateX(-50%) rotate(90deg);
   }
 }
+
+.stack-wrapper {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  width: 200px;
+}
