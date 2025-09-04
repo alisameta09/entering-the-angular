@@ -1,0 +1,14 @@
+:host {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  grid-gap: 24px;
+  align-items: center;
+  width: fit-content;
+}
+
+.profile-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}
+
