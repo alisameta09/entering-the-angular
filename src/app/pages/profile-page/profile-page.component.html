@@ -16,9 +16,9 @@
 
     <div>
       <div class="subscribers-header mb16">
-      <h3 class="h6">Подписчики</h3>
-      <div class="subscribers-badge">28
-      </div>
+        <h3 class="h6">Подписчики</h3>
+        <div class="subscribers-badge">28
+        </div>
       </div>
 
       <div class="subscribers-wrapper mb32">
@@ -34,7 +34,13 @@
         </a>
       </div>
 
+      <h3 class="h6 mb16">Навыки</h3>
 
+      <div class="stack-wrapper mb32">
+      @for (skill of ['123', '1233', '123', '1233', '232']; track skill) {
+        <div class="skill-tag">{{ skill }}</div>
+      }
+      </div>
     </div>
   </main>
 
