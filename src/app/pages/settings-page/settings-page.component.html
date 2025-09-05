@@ -1,0 +1,68 @@
+<app-profile-header
+></app-profile-header>
+
+<form class="profile-form__wrapper" [formGroup]="form">
+  <div class="profile-form">
+    <div class="two-columns">
+      <label class="tt-form-label">
+        <span class="tt-form-label__text">Имя</span>
+        <input
+          type="text"
+          class="tt-form-input"
+          formControlName="firstName"
+          placeholder="Введите данные"
+          ></label>
+
+      <label class="tt-form-label">
+        <span class="tt-form-label__text">Фамилия</span>
+        <input
+          type="text"
+          class="tt-form-input"
+          formControlName="lastName"
+          placeholder="Введите данные"
+        ></label>
+    </div>
+
+    <label class="tt-form-label">
+      <span class="tt-form-label__text">Telegram username</span>
+      <input
+        type="text"
+        class="tt-form-input"
+        formControlName="username"
+        placeholder="Введите данные"
+      ></label>
+
+    <label class="tt-form-label">
+      <span class="tt-form-label__text">О себе</span>
+      <textarea
+        formControlName="description"
+        class="tt-form-input tt-textarea"
+        rows="4"
+        placeholder="Введите данные"
+      ></textarea>
+    </label>
+
+    <label class="tt-form-label">
+      <span class="tt-form-label__text">Навыки</span>
+      <input type="text" class="tt-form-input" formControlName="stack" placeholder="Введите данные">
+    </label>
+  </div>
+
+  <div class="footer__wrapper">
+    <div class="icon-btn__wrapper">
+      <button class="icon-btn">
+        <svg icon="delete"></svg>
+      </button>
+      <button class="icon-btn">
+        <svg icon="exit"></svg>
+      </button>
+    </div>
+
+    <div class="btn__wrapper">
+      <button class="btn cancel-btn">Отмена</button>
+      <button class="btn save-btn">Сохранить</button>
+    </div>
+
+  </div>
+
+</form>

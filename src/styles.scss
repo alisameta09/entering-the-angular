@@ -7,6 +7,7 @@
   --primary-color: #AE7AFF;
   --dark-hover-color: #161616;
   --green-color: #98E9AB;
+  --light-transparent-color: rgba(255, 255, 255, 0.75);
 }
 
 *,
@@ -47,6 +48,23 @@ body {
   cursor: pointer;
   border-radius: 2px;
   border: 1px solid var(--dark-color);
+}
+
+.cancel-btn {
+  background: none;
+  border: 1px solid var(--light-color);
+  width: 91px;
+  height: 44px;
+  color: var(--light-color);
+}
+
+.icon-btn {
+  background: none;
+  border: 1px solid var(--light-color);
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  padding: 14px;
 }
 
 .h1 {
@@ -99,4 +117,45 @@ body {
   line-height: 21px;
   font-family: 'JetBrains Mono', sans-serif;
   color: var(--light-color);
+}
+
+.tt-form-label {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tt-form-label__text {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--light-transparent-color);
+}
+
+.tt-form-input {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--light-color);
+  border: none;
+  border-bottom: 1px solid var(--light-color);
+  background: none;
+  height: 33px;
+
+  &:focus-visible {
+    outline: 1px solid var(--primary-color);
+  }
+}
+
+.tt-textarea {
+  resize: none;
+
+  &:focus-visible {
+    height: 84px;
+  }
+}
+
+.footer__wrapper {
+  display: flex;
+  justify-content: space-between;
 }
