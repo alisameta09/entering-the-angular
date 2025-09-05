@@ -11,7 +11,7 @@
           class="tt-form-input"
           formControlName="firstName"
           placeholder="Введите данные"
-          ></label>
+        ></label>
 
       <label class="tt-form-label">
         <span class="tt-form-label__text">Фамилия</span>
@@ -60,7 +60,7 @@
 
     <div class="btn__wrapper">
       <button class="btn cancel-btn">Отмена</button>
-      <button class="btn save-btn">Сохранить</button>
+      <button class="btn save-btn" (click)="onSave()">Сохранить</button>
     </div>
 
   </div>
