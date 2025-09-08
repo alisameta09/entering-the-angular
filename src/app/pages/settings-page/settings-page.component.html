@@ -50,16 +50,16 @@
 
   <div class="footer__wrapper">
     <div class="icon-btn__wrapper">
-      <button class="icon-btn">
+      <a class="icon-btn">
         <svg icon="delete"></svg>
-      </button>
-      <button class="icon-btn">
+      </a>
+      <a class="icon-btn" [routerLink]="['/profile/me']">
         <svg icon="exit"></svg>
-      </button>
+      </a>
     </div>
 
     <div class="btn__wrapper">
-      <button class="btn cancel-btn">Отмена</button>
+      <a class="btn cancel-btn" [routerLink]="['/profile/me']">Отмена</a>
       <button class="btn save-btn" (click)="onSave()">Сохранить</button>
     </div>
 
