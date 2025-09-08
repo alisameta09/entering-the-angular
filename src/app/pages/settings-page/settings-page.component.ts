@@ -4,13 +4,15 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {SvgIconComponent} from '../../common-ui/svg-icon/svg-icon.component';
 import {ProfileService} from '../../data/services/profile.service';
 import {firstValueFrom} from 'rxjs';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-settings-page',
   imports: [
     ProfileHeaderComponent,
     ReactiveFormsModule,
-    SvgIconComponent
+    SvgIconComponent,
+    RouterLink
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss'
