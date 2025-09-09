@@ -43,18 +43,35 @@
     </label>
 
     <label class="tt-form-label">
+      <span class="tt-form-label__text">Аватарка</span>
+      <app-avatar-upload></app-avatar-upload>
+    </label>
+
+
+    <label class="tt-form-label">
       <span class="tt-form-label__text">Навыки</span>
-      <input type="text" class="tt-form-input" formControlName="stack" placeholder="Введите данные">
+      <input
+        type="text"
+        class="tt-form-input"
+        formControlName="stack"
+        placeholder="Введите данные"
+      >
     </label>
   </div>
 
   <div class="footer__wrapper">
     <div class="icon-btn__wrapper">
-      <a class="icon-btn">
-        <svg icon="delete"></svg>
+      <a>
+        <svg
+          icon="delete"
+          class="icon-btn"
+        ></svg>
       </a>
-      <a class="icon-btn" [routerLink]="['/profile/me']">
-        <svg icon="exit"></svg>
+      <a [routerLink]="['/profile/me']">
+        <svg
+          icon="exit"
+          class="icon-btn"
+        ></svg>
       </a>
     </div>
 
