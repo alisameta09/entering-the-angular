@@ -24,7 +24,12 @@
   cursor: pointer;
 
   &:focus-visible {
-    outline: 1px solid var(--primary-color);
+    border: none;
+    outline: 1px dashed var(--primary-color);
+  }
+
+  &.fileover {
+    border: 1px dashed var(--primary-color);
   }
 }
 
