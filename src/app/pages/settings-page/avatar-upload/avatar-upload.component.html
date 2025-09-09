@@ -15,7 +15,7 @@
   <div class="dropzone-content">
     <svg icon="upload" class="upload-icon"></svg>
     <span
-      class="medium-text dropzone-text"
+      class="dropzone-text"
     >Перетащите изображение или <span
       class="upload-text"
     >Загрузите</span> (разрешение до 5,000 x 5,000 px)</span>
@@ -25,7 +25,6 @@
     tabindex="-1"
     class="avatar-input"
     type="file"
-    [(ngModel)]="avatar"
     #fileDrop
     (change)="fileBrowserHandler($event)"
   >
