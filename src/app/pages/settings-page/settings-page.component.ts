@@ -5,6 +5,7 @@ import {SvgIconComponent} from '../../common-ui/svg-icon/svg-icon.component';
 import {ProfileService} from '../../data/services/profile.service';
 import {firstValueFrom} from 'rxjs';
 import {RouterLink} from '@angular/router';
+import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
 
 @Component({
   selector: 'app-settings-page',
@@ -12,7 +13,8 @@ import {RouterLink} from '@angular/router';
     ProfileHeaderComponent,
     ReactiveFormsModule,
     SvgIconComponent,
-    RouterLink
+    RouterLink,
+    AvatarUploadComponent
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss'
