@@ -29,9 +29,10 @@
   border-radius: 2px;
   text-decoration: none;
 
+  &.active,
   &:hover,
   &:focus-visible {
-    background: var(--light-hover-color);
+    background: var(--dark-hover-color);
     color: var(--primary-color);
 
     .menu-icon {

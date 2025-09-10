@@ -1,0 +1,22 @@
+.profile-search-form {
+  padding: 16px 20px;
+  border: 1px solid var(--light-color);
+  background: var(--dark-color);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+  grid-gap: 40px;
+}
+
+.search-by-name {
+  display: grid;
+  position: relative;
+  align-items: center;
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 0;
+}
+
