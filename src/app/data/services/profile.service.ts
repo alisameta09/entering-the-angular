@@ -12,10 +12,7 @@ export class ProfileService {
   baseApiUrl = 'https://icherniakov.ru/yt-course/';
 
   me = signal<Profile | null>(null);
-
-  getTestAccounts() {
-    return this.http.get<Profile[]>(`${this.baseApiUrl}account/test_accounts`);
-  }
+  filteredProfiles = signal<Profile[]>([]);
 
   getMe() {
     return this.http.get<Profile>(`${this.baseApiUrl}account/me`)
@@ -50,6 +47,16 @@ export class ProfileService {
       `${this.baseApiUrl}account/upload_image`,
       fd
     );
+  }
+
+  filterProfiles(params: Record<string, any>) {
+    return this.http.get<Pageble<Profile>>(
+      `${this.baseApiUrl}account/accounts`,
+      {params}
+    )
+      .pipe(
+        tap(res => this.filteredProfiles.set(res.items)),
+      )
   }
 
 }
