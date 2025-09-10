@@ -1,0 +1,10 @@
+.profile-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}
+
+:host.size32 .profile-avatar {
+  width: 32px;
+  height: 32px;
+}

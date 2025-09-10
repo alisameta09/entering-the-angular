@@ -1,1 +1,15 @@
-<p>post-input works!</p>
+@if (profile(); as profile) {
+  <app-avatar-circle
+    class="size32"
+    [avatarUrl]="profile.avatarUrl"
+  ></app-avatar-circle>
+}
+
+<textarea
+  class="hidden-textarea"
+  (input)="onTextAreaInput($event)"
+></textarea>
+
+<button class="icon-btn">
+<svg icon="send-message" class="svg16"></svg>
+</button>
