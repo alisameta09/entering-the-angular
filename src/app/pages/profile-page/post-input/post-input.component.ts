@@ -1,4 +1,4 @@
-import {Component, inject, input, Renderer2} from '@angular/core';
+import {Component, HostBinding, inject, input, Renderer2} from '@angular/core';
 import {AvatarCircleComponent} from '../../../common-ui/avatar-circle/avatar-circle.component';
 import {ProfileService} from '../../../data/services/profile.service';
 import {SvgIconComponent} from '../../../common-ui/svg-icon/svg-icon.component';
@@ -23,6 +23,11 @@ export class PostInputComponent {
 
   isCommentInput = input<boolean>(false);
   postId = input<number>(0);
+
+  @HostBinding('class.comment')
+  get isComment() {
+    return this.isCommentInput();
+  }
 
   postText = '';
 
