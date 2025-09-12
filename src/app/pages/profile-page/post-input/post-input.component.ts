@@ -38,7 +38,9 @@ export class PostInputComponent {
       content: this.postText,
       authorId: this.profile()!.id,
       communityId: 0
-    }))
+    })).then(() => {
+      this.postText = '';
+    })
   }
 
 }
