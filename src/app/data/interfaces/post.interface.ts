@@ -30,3 +30,9 @@ export interface Comment {
   createdAt: string,
   updatedAt: string
 }
+
+export interface CommentCreateDto {
+  text: string,
+  authorId: number,
+  postId: number,
+}
