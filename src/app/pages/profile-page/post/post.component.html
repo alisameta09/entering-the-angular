@@ -16,7 +16,7 @@
     <div class="post-counters">
       <span class="comment-amount">
         <svg icon="comment" class="svg16 comment-icon"></svg>
-        <span class="comment-length">{{ post.comments.length }}</span>
+        <span class="comment-length">{{ comments().length }}</span>
       </span>
 
       <span class="likes-amount">
@@ -26,7 +26,7 @@
     </div>
 
     <div class="post__comments-wrapper">
-      @for (comment of post.comments; track comment.id) {
+      @for (comment of comments(); track comment.id) {
         <app-comment
           [comment]="comment"
         ></app-comment>
@@ -34,6 +34,7 @@
     </div>
 
     <app-post-input
+      (created)="onCreated()"
       [postId]="post.id"
       [isCommentInput]="true"
     ></app-post-input>
