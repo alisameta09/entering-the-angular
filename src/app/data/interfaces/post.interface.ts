@@ -18,10 +18,10 @@ export interface Post {
   updatedAt: string,
   likes: number,
   likesUsers: string[],
-  comments: Comment[]
+  comments: PostComment[]
 }
 
-export interface Comment {
+export interface PostComment {
   id: number,
   text: string,
   author: Profile,
