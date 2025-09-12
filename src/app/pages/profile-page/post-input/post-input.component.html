@@ -6,10 +6,16 @@
 }
 
 <textarea
+  name="textarea-post"
+  [(ngModel)]="postText"
   class="hidden-textarea"
   (input)="onTextAreaInput($event)"
+  placeholder="Напишите что-нибудь"
 ></textarea>
 
-<button class="icon-btn">
-<svg icon="send-message" class="svg16"></svg>
+<button
+  class="icon-btn"
+  (click)="onCreatePost()"
+>
+  <svg icon="send-message" class="svg16"></svg>
 </button>
