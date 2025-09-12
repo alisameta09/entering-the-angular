@@ -59,3 +59,11 @@
 .likes-icon {
   color: var(--light-color);
 }
+
+.post__comments-wrapper {
+  max-height: 150px;
+  overflow-y: scroll;
+  display: grid;
+  grid-gap: 8px;
+  padding: 8px 0;
+}
