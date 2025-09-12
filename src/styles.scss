@@ -25,6 +25,7 @@ body {
   color: var(--light-color);
   background-image: url(/assets/images/background.jpg);
   background-size: cover;
+  overflow: hidden;
 }
 
 .skill-tag {
