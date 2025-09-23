@@ -6,13 +6,13 @@
 
   <div class="comment-body">
     <header class="comment-header">
-      <span class="medium-text">{{ comment.author.firstName }} {{ comment.author.lastName }}</span>
+      <span class="comment-author">{{ comment.author.firstName }} {{ comment.author.lastName }}</span>
       <span
-        class="medium-text"
+        class="post-created-at"
       >{{ comment.createdAt | dateTransform:'':true }}
       </span>
     </header>
 
-    <div class="comment-text">{{ comment.text }}</div>
+    <div class="medium-text">{{ comment.text }}</div>
   </div>
 }

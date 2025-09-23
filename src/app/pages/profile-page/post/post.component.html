@@ -37,7 +37,7 @@
     </div>
 
     <app-post-input
-      (created)="onCreated()"
+      (postCreated)="onCreateComment($event)"
       [postId]="post.id"
       [isCommentInput]="true"
     ></app-post-input>

@@ -2,9 +2,7 @@ import {Component, EventEmitter, HostBinding, inject, input, Output, Renderer2} 
 import {AvatarCircleComponent} from '../../../common-ui/avatar-circle/avatar-circle.component';
 import {ProfileService} from '../../../data/services/profile.service';
 import {SvgIconComponent} from '../../../common-ui/svg-icon/svg-icon.component';
-import {PostService} from '../../../data/services/post.service';
 import {FormsModule} from '@angular/forms';
-import {firstValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-post-input',
@@ -18,20 +16,19 @@ import {firstValueFrom} from 'rxjs';
 })
 export class PostInputComponent {
   r2 = inject(Renderer2);
-  postService = inject(PostService);
   profile = inject(ProfileService).me;
 
   isCommentInput = input<boolean>(false);
   postId = input<number>(0);
 
-  @Output() created = new EventEmitter();
+  postText = '';
+
+  @Output() postCreated = new EventEmitter();
 
   @HostBinding('class.comment')
   get isComment() {
     return this.isCommentInput();
   }
-
-  postText = '';
 
   onTextAreaInput(event: Event) {
     const textarea = event.target as HTMLTextAreaElement;
@@ -40,30 +37,11 @@ export class PostInputComponent {
     this.r2.setStyle(textarea, 'height', textarea.scrollHeight + 'px');
   }
 
-  onCreatePost() {
-    if (!this.postText) return;
-
-    if (this.isCommentInput()) {
-      firstValueFrom(this.postService.createComment({
-        text: this.postText,
-        authorId: this.profile()!.id,
-        postId: this.postId(),
-      })).then(() => {
-        this.postText = '';
-        this.created.emit();
-      })
-
-      return;
-    }
-
-    firstValueFrom(this.postService.createPost({
-      title: 'Клевый пост',
-      content: this.postText,
-      authorId: this.profile()!.id,
-      communityId: 0
-    })).then(() => {
+  onPostSend() {
+    if (this.postText.trim()) {
+      this.postCreated.emit(this.postText);
       this.postText = '';
-    })
+    }
   }
 
 }
