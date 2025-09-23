@@ -7,6 +7,7 @@ import {CommentComponent} from './comment/comment.component';
 import {PostService} from '../../../data/services/post.service';
 import {firstValueFrom} from 'rxjs';
 import {DateTransformPipe} from '../../../helpers/pipes/date-transform.pipe';
+import {ProfileService} from '../../../data/services/profile.service';
 
 @Component({
   selector: 'app-post',
@@ -26,16 +27,28 @@ export class PostComponent implements OnInit {
   comments = signal<PostComment[]>([])
 
   postService = inject(PostService);
+  profile = inject(ProfileService).me;
 
-  async ngOnInit() {
+  ngOnInit() {
     this.comments.set(this.post()!.comments);
   }
 
-  async onCreated() {
-    const comments = await firstValueFrom(
+  async onCreateComment(commentText: string) {
+    if (!commentText.trim()) return;
+
+    await firstValueFrom(
+      this.postService.createComment({
+        text: commentText,
+        authorId: this.profile()!.id,
+        postId: this.post()!.id,
+      })
+    );
+
+    const createdComments = await firstValueFrom(
       this.postService.getCommentsByPostId(this.post()!.id)
     );
 
-    this.comments.set(comments);
+    this.comments.set(createdComments);
   }
+
 }

@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {ProfileHeaderComponent} from '../../common-ui/profile-header/profile-header.component';
 import {ProfileService} from '../../data/services/profile.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {map, switchMap} from 'rxjs';
+import {switchMap} from 'rxjs';
 import {toObservable} from '@angular/core/rxjs-interop';
 import {AsyncPipe} from '@angular/common';
 import {SvgIconComponent} from '../../common-ui/svg-icon/svg-icon.component';
@@ -35,9 +35,8 @@ export class ProfilePageComponent {
         if (id === 'me') return this.me$;
 
         return this.profileService.getAccount(id);
-        })
+      })
     )
-
 
 }
 
