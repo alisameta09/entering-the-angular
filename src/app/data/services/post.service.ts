@@ -2,6 +2,7 @@ import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CommentCreateDto, Post, PostComment, PostCreateDto} from '../interfaces/post.interface';
 import {map, switchMap, tap} from 'rxjs';
+import {baseApiUrl} from '../../../const';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,10 @@ import {map, switchMap, tap} from 'rxjs';
 export class PostService {
   #http = inject(HttpClient);
 
-  baseApiUrl = 'https://icherniakov.ru/yt-course/';
-
   posts = signal<Post[]>([])
 
   createPost(payload: PostCreateDto) {
-    return this.#http.post<Post>(`${this.baseApiUrl}post/`, payload)
+    return this.#http.post<Post>(`${baseApiUrl}post/`, payload)
       .pipe(
         switchMap(() => {
           return this.fetchPosts()
@@ -23,18 +22,18 @@ export class PostService {
   }
 
   fetchPosts() {
-    return this.#http.get<Post[]>(`${this.baseApiUrl}post/`)
+    return this.#http.get<Post[]>(`${baseApiUrl}post/`)
       .pipe(
         tap(res => this.posts.set(res))
       )
   }
 
   createComment(payload: CommentCreateDto) {
-    return this.#http.post<PostComment>(`${this.baseApiUrl}comment/`, payload)
+    return this.#http.post<PostComment>(`${baseApiUrl}comment/`, payload)
   }
 
   getCommentsByPostId(postId: number) {
-    return this.#http.get<Post>(`${this.baseApiUrl}post/${postId}`)
+    return this.#http.get<Post>(`${baseApiUrl}post/${postId}`)
       .pipe(
         map(res => res.comments)
       )
