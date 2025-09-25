@@ -4,6 +4,7 @@ import {TokenResponse} from './auth.interface';
 import {catchError, tap, throwError} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
+import {authUrl} from '../../const';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,6 @@ export class AuthService {
   http = inject(HttpClient);
   cookieService = inject(CookieService);
   router = inject(Router);
-  baseApiUrl = 'https://icherniakov.ru/yt-course/auth/';
 
   token: string | null = null;
   refreshToken: string | null = null;
@@ -33,7 +33,7 @@ export class AuthService {
     fd.append('username', payload.username);
     fd.append('password', payload.password);
 
-    return this.http.post<TokenResponse>(`${this.baseApiUrl}token`,
+    return this.http.post<TokenResponse>(`${authUrl}token`,
       fd
     ).pipe(
       tap(val => this.saveTokens(val))
@@ -42,7 +42,7 @@ export class AuthService {
 
   refreshAuthToken() {
     return this.http.post<TokenResponse>(
-      `${this.baseApiUrl}refresh`,
+      `${authUrl}refresh`,
       {
         refresh_token: this.refreshToken,
       }
