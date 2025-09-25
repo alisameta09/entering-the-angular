@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  border-right: var(--light-border);
+}
+
+.chats-filter-input__wrapper {
+  padding: 16px 20px;
+  border-bottom: var(--light-border);
+  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.search-by-name {
+  display: grid;
+  position: relative;
+  align-items: center;
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 0;
+}

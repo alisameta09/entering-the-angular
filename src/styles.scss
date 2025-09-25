@@ -8,6 +8,8 @@
   --dark-hover-color: #161616;
   --green-color: #98E9AB;
   --light-transparent-color: rgba(255, 255, 255, 0.75);
+
+  --light-border: 1px solid var(--light-color);
 }
 
 *,
@@ -153,10 +155,11 @@ body {
 }
 
 .tt-form-input {
+  font-family: 'JetBrains Mono', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
-  color: var(--light-color);
+  color: var(--light-transparent-color);
   border: none;
   border-bottom: 1px solid var(--light-color);
   background: none;
