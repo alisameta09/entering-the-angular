@@ -9,6 +9,7 @@
 }
 
 .hidden-textarea {
+  font-family: 'JetBrains Mono', sans-serif;
   resize: none;
   background: var(--dark-color);
   color: var(--light-color);
@@ -26,6 +27,7 @@
 }
 
 .hidden-textarea::placeholder {
+  color: var(--light-transparent-color);
   font-weight: 500;
   font-size: 14px;
   line-height: 21px;

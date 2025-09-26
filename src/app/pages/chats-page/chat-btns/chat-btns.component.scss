@@ -1,7 +1,46 @@
 :host {
+  width: 100%;
+  background: none;
+  border: none;
   display: grid;
   grid-template-columns: 32px 1fr;
   grid-gap: 16px;
-  border-bottom: var(--light-border);
   padding: 24px 20px;
+  border-bottom: var(--light-border);
+}
+
+:host:hover,
+:host:focus-visible,
+:host.active {
+  background: var(--dark-hover-color);
+
+  .last-message-header__wrapper {
+    color: var(--primary-color);
+  }
+}
+
+.last-message__wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 16px;
+  color: var(--light-color);
+}
+
+.last-message-header__wrapper {
+  color: var(--light-transparent-color);
+  display: flex;
+  justify-content: space-between;
+}
+
+.last-message-text__wrapper {
+  display: flex;
+}
+
+.last-message-text {
+  width: 100%;
+}
+
+.count-badge {
+  background: var(--primary-color);
 }

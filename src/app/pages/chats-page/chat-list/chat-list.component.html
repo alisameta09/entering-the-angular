@@ -13,6 +13,8 @@
 
 @for (chat of chats$ | async; track chat.id) {
   <button
+    [routerLink]="[chat.id]"
+    routerLinkActive="active"
     [chat]="chat"
     chats
   ></button>
