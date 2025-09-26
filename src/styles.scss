@@ -102,6 +102,12 @@ body {
 
 .medium-text {
   font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.medium-small-text {
+  font-weight: 500;
   font-size: 12px;
   line-height: 16px;
 }
@@ -159,7 +165,7 @@ body {
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
-  color: var(--light-transparent-color);
+  color: var(--light-color);
   border: none;
   border-bottom: 1px solid var(--light-color);
   background: none;
@@ -168,6 +174,10 @@ body {
   &:focus-visible {
     outline: 1px solid var(--primary-color);
   }
+}
+
+.tt-form-input::placeholder {
+  color: var(--light-transparent-color);
 }
 
 .tt-textarea {
@@ -181,4 +191,15 @@ body {
 .footer__wrapper {
   display: flex;
   justify-content: space-between;
+}
+
+.count-badge {
+  width: 26px;
+  height: 18px;
+  padding: 1px 5px;
+  background: var(--green-color);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--dark-color);
 }
