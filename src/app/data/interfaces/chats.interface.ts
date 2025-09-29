@@ -21,7 +21,7 @@ export interface LastMessageRes
   {
     id: number,
     userFrom: Profile,
-    message: string,
+    message: string | null,
     createdAt: string,
     unreadMessages: number
   }
