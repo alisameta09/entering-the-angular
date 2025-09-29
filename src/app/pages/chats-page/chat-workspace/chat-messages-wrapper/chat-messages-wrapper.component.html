@@ -1,2 +1,9 @@
-<app-chat-message></app-chat-message>
-<app-post-input></app-post-input>
+@for (message of messages(); track message.id) {
+  <app-chat-message
+  [message]="message"
+  ></app-chat-message>
+}
+
+<app-post-input
+  (postCreated)="onSendMessage($event)"
+></app-post-input>
