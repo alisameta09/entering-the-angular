@@ -1,10 +1,11 @@
 import {Component, inject} from '@angular/core';
 import {ChatBtnsComponent} from '../chat-btns/chat-btns.component';
 import {SvgIconComponent} from '../../../common-ui/svg-icon/svg-icon.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {ChatService} from '../../../data/services/chat.service';
 import {AsyncPipe} from '@angular/common';
 import {RouterLink, RouterLinkActive} from '@angular/router';
+import {map, startWith, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-chat-list',
@@ -22,5 +23,23 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 export class ChatListComponent {
   chatService = inject(ChatService);
 
-  chats$ = this.chatService.getMyChats();
+  chatsFilterControl = new FormControl('');
+
+  chats$ = this.chatService.getMyChats()
+    .pipe(
+      switchMap(chats => {
+        return this.chatsFilterControl.valueChanges
+          .pipe(
+            startWith(''),
+            map(inputValue => {
+              return chats.filter(chat => {
+                return `${chat.userFrom.firstName} ${chat.userFrom.lastName}`
+                  .toLowerCase()
+                  .includes((inputValue ?? '').toLowerCase())
+              })
+            })
+          )
+      })
+    )
+
 }
