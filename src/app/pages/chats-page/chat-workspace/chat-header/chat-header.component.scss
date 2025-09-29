@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  grid-template-columns: 44px 1fr 44px;
+  border-bottom: var(--light-border);
+  padding: 16px 20px;
+  height: 76px;
+}
+
+.companion-header__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.companion-username-info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-input {
+  width: 16px;
+  height: 16px;
+}
