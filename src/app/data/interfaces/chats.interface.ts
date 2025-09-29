@@ -4,7 +4,8 @@ export interface Chat {
   id: number,
   userFirst: Profile,
   userSecond: Profile,
-  messages: Message[]
+  messages: Message[],
+  companion?: Profile
 }
 
 export interface Message {

@@ -2,6 +2,8 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {chatUrl, messageUrl} from '../../../const';
 import {Chat, LastMessageRes, Message} from '../interfaces/chats.interface';
+import {map} from 'rxjs';
+import {ProfileService} from './profile.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +11,7 @@ import {Chat, LastMessageRes, Message} from '../interfaces/chats.interface';
 
 export class ChatService {
   http = inject(HttpClient);
+  me = inject(ProfileService).me;
 
   createChat(userId: number) {
     return this.http.post<Chat>(`${chatUrl}${userId}`, {})
@@ -16,6 +19,14 @@ export class ChatService {
 
   getChatById(chatId: number) {
     return this.http.get<Chat>(`${chatUrl}${chatId}`)
+      .pipe(
+        map(chat => {
+          return {
+            ...chat,
+            companion: chat.userFirst.id === this.me()!.id ? chat.userSecond : chat.userFirst
+          }
+        })
+      )
   }
 
   getMyChats() {
@@ -24,10 +35,10 @@ export class ChatService {
 
   sendMessage(chatId: number, message: string) {
     return this.http.post<Message>(`${messageUrl}${chatId}`, {}, {
-        params: {
-          message
-        }
-      })
+      params: {
+        message
+      }
+    })
   }
 
 }
