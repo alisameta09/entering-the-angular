@@ -23,7 +23,13 @@ export class ChatService {
         map(chat => {
           return {
             ...chat,
-            companion: chat.userFirst.id === this.me()!.id ? chat.userSecond : chat.userFirst
+            companion: chat.userFirst.id === this.me()!.id ? chat.userSecond : chat.userFirst,
+            messages: chat.messages.map(message => {
+              return {
+                ...message,
+                user: chat.userFirst.id === message.userFromId ? chat.userFirst : chat.userSecond,
+              }
+            })
           }
         })
       )
