@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 32px 1fr;
   grid-gap: 12px;
+  margin-bottom: 12px;
 }
 
 :host.is-mine {
@@ -14,6 +15,8 @@
 
   .message-text {
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+    color: var(--dark-color);
+    background: var(--primary-color);
   }
 }
 
