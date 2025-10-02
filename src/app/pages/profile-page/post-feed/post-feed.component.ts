@@ -1,4 +1,4 @@
-import {Component, DestroyRef, ElementRef, inject, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, DestroyRef, ElementRef, inject, Renderer2} from '@angular/core';
 import {PostInputComponent} from '../post-input/post-input.component';
 import {PostComponent} from '../post/post.component';
 import {PostService} from '../../../data/services/post.service';
@@ -15,7 +15,7 @@ import {ProfileService} from '../../../data/services/profile.service';
   templateUrl: './post-feed.component.html',
   styleUrl: './post-feed.component.scss'
 })
-export class PostFeedComponent {
+export class PostFeedComponent implements AfterViewInit {
   PADDING = 24 * 2;
 
   r2 = inject(Renderer2)

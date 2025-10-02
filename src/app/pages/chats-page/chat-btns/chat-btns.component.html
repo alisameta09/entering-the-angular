@@ -8,7 +8,7 @@
 
     <div class="medium-small-text last-message-header__wrapper">
       <span>{{ chat.userFrom.firstName }} {{ chat.userFrom.lastName }}</span>
-      <span>{{ chat.createdAt | date: 'dd.MM.YYYY' }}</span>
+      <span>{{ chat.createdAt | dateTransform: 'HH:mm' }} {{ chat.createdAt | dateTransform: 'dd.MM.yyyy' }}</span>
     </div>
 
     <div class="medium-small-text last-message-text__wrapper">
