@@ -4,7 +4,7 @@ import {
   DestroyRef,
   ElementRef,
   inject,
-  input, QueryList,
+  input, OnInit, QueryList,
   Renderer2,
   ViewChild,
   ViewChildren
@@ -13,7 +13,7 @@ import {ChatMessageComponent} from './chat-message/chat-message.component';
 import {PostInputComponent} from '../../../profile-page/post-input/post-input.component';
 import {ChatService} from '../../../../data/services/chat.service';
 import {Chat} from '../../../../data/interfaces/chats.interface';
-import {debounceTime, firstValueFrom, fromEvent} from 'rxjs';
+import {debounceTime, firstValueFrom, fromEvent, switchMap, timer} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
@@ -25,7 +25,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   templateUrl: './chat-messages-wrapper.component.html',
   styleUrl: './chat-messages-wrapper.component.scss'
 })
-export class ChatMessagesWrapperComponent implements AfterViewInit {
+export class ChatMessagesWrapperComponent implements OnInit, AfterViewInit {
+
   PADDING = 24;
 
   chatService = inject(ChatService);
@@ -38,7 +39,18 @@ export class ChatMessagesWrapperComponent implements AfterViewInit {
   messages = this.chatService.activeChatMessages;
 
   @ViewChild('messagesContainer') messagesContainer?: ElementRef<HTMLElement>;
-  @ViewChildren('lastMessage') lastMessage?: QueryList<HTMLElement>;
+  @ViewChildren('lastMessage') lastMessage?: QueryList<ElementRef<HTMLElement>>;
+
+  ngOnInit() {
+    timer(0, 3000)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        switchMap(() => this.chatService.getChatById(this.chat().id))
+      )
+      .subscribe((chat) => {
+        this.chatService.activeChatMessages.set(chat.messages)
+      });
+  }
 
   ngAfterViewInit() {
     this.resizeFeed();
