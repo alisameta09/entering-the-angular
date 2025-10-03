@@ -17,6 +17,22 @@
   .last-message-header__wrapper {
     color: var(--primary-color);
   }
+
+  .message-time {
+    display: inline;
+  }
+
+  .message-date {
+    display: none;
+  }
+}
+
+:host .message-time {
+  display: none;
+}
+
+:host .message-date {
+  display: inline;
 }
 
 .last-message__wrapper {
