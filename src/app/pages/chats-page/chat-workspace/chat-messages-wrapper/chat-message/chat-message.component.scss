@@ -13,11 +13,20 @@
     order: -1;
   }
 
+  .message-time {
+    order: -1;
+  }
+
   .message-text {
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
     color: var(--dark-color);
     background: var(--primary-color);
   }
+}
+
+.message-header {
+  display: flex;
+  gap: 4px;
 }
 
 .message-text {
