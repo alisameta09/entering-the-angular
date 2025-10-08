@@ -27,7 +27,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 })
 export class ChatMessagesWrapperComponent implements OnInit, AfterViewInit {
 
-  PADDING = 24;
+  private readonly PADDING = 24;
 
   chatService = inject(ChatService);
   r2 = inject(Renderer2);
@@ -36,7 +36,7 @@ export class ChatMessagesWrapperComponent implements OnInit, AfterViewInit {
 
   chat = input.required<Chat>()
 
-  messages = this.chatService.activeChatMessages;
+  messages = this.chatService.groupedChatMessages;
 
   @ViewChild('messagesContainer') messagesContainer?: ElementRef<HTMLElement>;
   @ViewChildren('lastMessage') lastMessage?: QueryList<ElementRef<HTMLElement>>;
@@ -47,9 +47,7 @@ export class ChatMessagesWrapperComponent implements OnInit, AfterViewInit {
         takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.chatService.getChatById(this.chat().id))
       )
-      .subscribe((chat) => {
-        this.chatService.activeChatMessages.set(chat.messages)
-      });
+      .subscribe();
   }
 
   ngAfterViewInit() {

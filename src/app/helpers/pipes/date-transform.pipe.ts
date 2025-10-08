@@ -10,6 +10,7 @@ export class DateTransformPipe implements PipeTransform {
     value: string | null,
     format: string = 'HH:mm dd.MM.yyyy',
     relative: boolean = false,
+    calendar: boolean = false
   ): string {
 
     if (!value) return '';
@@ -28,6 +29,10 @@ export class DateTransformPipe implements PipeTransform {
       if (diffInSeconds < 60) return 'только что';
 
       return localizedDate.toRelative() ?? '';
+    }
+
+    if (calendar) {
+      return localizedDate.toRelativeCalendar() ?? '';
     }
 
     return localizedDate.toFormat(format);

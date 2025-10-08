@@ -4,6 +4,7 @@ import {chatUrl, messageUrl} from '../../../const';
 import {Chat, LastMessageRes, Message} from '../interfaces/chats.interface';
 import {map} from 'rxjs';
 import {ProfileService} from './profile.service';
+import {DateTransformPipe} from '../../helpers/pipes/date-transform.pipe';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,10 @@ export class ChatService {
   http = inject(HttpClient);
   me = inject(ProfileService).me;
 
-  activeChatMessages = signal<Message[]>([]);
+  groupedChatMessages = signal<{
+    label: string;
+    messages: Message[];
+  }[]>([]);
 
   createChat(userId: number) {
     return this.http.post<Chat>(`${chatUrl}${userId}`, {})
@@ -30,7 +34,8 @@ export class ChatService {
             }
           })
 
-          this.activeChatMessages.set(patchedMessages)
+          const groupedMessages = this.groupMessagesByDay(patchedMessages);
+          this.groupedChatMessages.set(groupedMessages)
 
           return {
             ...chat,
@@ -39,6 +44,25 @@ export class ChatService {
           }
         })
       )
+  }
+
+  groupMessagesByDay(messages: Message[]) {
+    const groups: Record<string, Message[]> = {};
+    const datePipe = new DateTransformPipe();
+
+    messages.forEach(message => {
+      const dayLabel = datePipe.transform(message.createdAt, '', false, true);
+
+      if (!groups[dayLabel]) groups[dayLabel] = [];
+
+      groups[dayLabel].push(message);
+    });
+
+    return Object.keys(groups)
+      .map(day => ({
+        label: day,
+        messages: groups[day]
+      }))
   }
 
   getMyChats() {
