@@ -1,0 +1,131 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+  <div>
+    <h4 class="h4 mb16">Информация о туре</h4>
+
+    <label class="tt-control-label mb16">
+      Город вылета
+      <input
+        class="tt-input from-city"
+        type="text"
+        placeholder="Введите название"
+        formControlName="fromCity"
+      >
+    </label>
+
+    <div class="client-data__wrapper">
+      <label class="tt-control-label mb16">
+        Страна
+        <select class="tt-input" formControlName="destination">
+          <option [value]="DestinationName.TURKEY">Турция</option>
+          <option [value]="DestinationName.EGYPT">Египет</option>
+          <option [value]="DestinationName.UAE">ОАЭ</option>
+          <option [value]="DestinationName.THAILAND">Таиланд</option>
+          <option [value]="DestinationName.RUSSIA">Россия</option>
+        </select>
+      </label>
+
+      <label class="tt-control-label mb16">
+        Дата вылета
+        <input
+          class="tt-input"
+          type="text"
+          placeholder="Дата вылета"
+          formControlName="date"
+        >
+      </label>
+
+      <label class="tt-control-label mb16">
+        Количество ночей
+        <input
+          class="tt-input"
+          type="text"
+          placeholder="Количество ночей"
+          formControlName="duration"
+        >
+      </label>
+
+      <label class="tt-control-label mb16">
+        Туристы
+        <input
+          class="tt-input"
+          type="text"
+          placeholder="Туристы"
+          formControlName="tourists"
+        >
+      </label>
+
+    </div>
+    <label class="tt-control-label mb16">
+      Дополнительно
+      <input
+        class="tt-input"
+        type="text"
+        placeholder="Дополнительные пожелания"
+        formControlName="info"
+      >
+    </label>
+
+  </div>
+
+  <div>
+    <h6 class="h6 mb16">Данные для связи</h6>
+
+    <div class="client-data__wrapper" formGroupName="contact">
+
+      <label class="tt-control-label mb16">
+        Тип заказчика
+        <select class="tt-input" formControlName="type">
+          <option [value]="ReceiverType.PERSON">Физическое лицо</option>
+          <option [value]="ReceiverType.LEGAL">Юридическое лицо</option>
+        </select>
+      </label>
+
+      @if (form.controls.contact.controls.type.value === ReceiverType.LEGAL) {
+        <label class="tt-control-label mb16">
+          ИНН
+          <input
+            class="tt-input"
+            type="text"
+            placeholder="Введите ИНН"
+            formControlName="inn"
+          >
+        </label>
+      } @else {
+        <label class="tt-control-label mb16">
+          Фамилия
+          <input
+            class="tt-input"
+            type="text"
+            placeholder="Введите фамилию"
+            formControlName="lastName"
+          >
+        </label>
+      }
+
+
+      <label class="tt-control-label mb16">
+        Имя
+        <input
+          class="tt-input"
+          type="text"
+          placeholder="Введите имя"
+          formControlName="name"
+        >
+      </label>
+
+      <label class="tt-control-label mb16">
+        Номер телефона
+        <input
+          class="tt-input"
+          type="text"
+          placeholder="Номер телефона"
+          formControlName="number"
+        >
+      </label>
+
+    </div>
+  </div>
+
+  <button class="btn" type="submit">Отправить заявку</button>
+
+</form>
