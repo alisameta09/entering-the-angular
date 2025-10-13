@@ -1,0 +1,22 @@
+:host {
+  display: grid;
+  grid-template-columns: 640px;
+  height: 100%;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.client-data__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.tt-input {
+  border: none;
+}
+
+.from-city {
+  width: 315px;
+}
