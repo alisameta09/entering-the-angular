@@ -1,8 +1,19 @@
 import {Component} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DestinationName, ReceiverType} from '../const';
 import {MaskitoDirective} from '@maskito/angular';
 import {dateMaskOptions, phoneMaskOptions} from '../masks';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+
+function getContactForm() {
+  return new FormGroup({
+    type: new FormControl<ReceiverType>(ReceiverType.PERSON),
+    inn: new FormControl<number | null>(null),
+    name: new FormControl<string>('', Validators.required),
+    lastName: new FormControl<string>(''),
+    phone: new FormControl<number | null>(null, Validators.required)
+  })
+}
 
 @Component({
   selector: 'app-forms-experiment',
@@ -26,17 +37,34 @@ export class FormsExperimentComponent {
     duration: new FormControl<number | null>(null),
     tourists: new FormControl<string>(''),
     info: new FormControl<string>(''),
-    contact: new FormGroup({
-      type: new FormControl<ReceiverType>(ReceiverType.PERSON),
-      inn: new FormControl<number | null>(null),
-      name: new FormControl<string>(''),
-      lastName: new FormControl<string>(''),
-      phone: new FormControl<number | null>(null)
-    }),
+    contact: getContactForm(),
   });
 
+  constructor() {
+    const type = this.form.controls.contact.controls.type;
+    const inn = this.form.controls.contact.controls.inn;
+
+    type.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe(val => {
+          inn.clearValidators();
+
+          if (val === ReceiverType.LEGAL) {
+            inn.setValidators(
+              [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
+            );
+          }})
+
+  }
+
   onSubmit(event: SubmitEvent) {
-    console.log(this.form.value);
+    this.form.markAllAsTouched();
+    this.form.updateValueAndValidity();
+
+    if (this.form.invalid) return;
+
+    console.log(this.form.getRawValue());
+
   }
 
 }

@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
   <div>
-    <h4 class="h4 mb16">Информация о туре</h4>
+    <h4 class="h4 mb20">Информация о туре</h4>
 
     <label class="tt-control-label mb16">
       Город вылета
@@ -69,7 +69,7 @@
   </div>
 
   <div>
-    <h6 class="h6 mb16">Данные для связи</h6>
+    <h6 class="h6 mb20 mt20">Данные для связи</h6>
 
     <div class="client-data__wrapper" formGroupName="contact">
 
@@ -90,6 +90,10 @@
             placeholder="Введите ИНН"
             formControlName="inn"
           >
+          @if (form.controls.contact.controls.inn.touched &&
+          form.controls.contact.controls.inn.hasError('required')) {
+            <small>Это поле обязательно!</small>
+          }
         </label>
       } @else {
         <label class="tt-control-label mb16">
@@ -103,7 +107,6 @@
         </label>
       }
 
-
       <label class="tt-control-label mb16">
         Имя
         <input
@@ -112,6 +115,10 @@
           placeholder="Введите имя"
           formControlName="name"
         >
+        @if (form.controls.contact.controls.name.touched &&
+        form.controls.contact.controls.name.hasError('required')) {
+          <small>Это поле обязательно!</small>
+        }
       </label>
 
       <label class="tt-control-label mb16">
@@ -123,8 +130,11 @@
           formControlName="phone"
           [maskito]="phoneMaskOptions"
         >
+        @if (form.controls.contact.controls.phone.touched &&
+        form.controls.contact.controls.phone.hasError('required')) {
+          <small>Это поле обязательно!</small>
+        }
       </label>
-
     </div>
   </div>
 
