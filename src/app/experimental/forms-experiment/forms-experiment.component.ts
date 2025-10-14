@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {DestinationName, ReceiverType} from '../const';
 import {MaskitoDirective} from '@maskito/angular';
-import {dateMaskOptions} from '../mask';
+import {dateMaskOptions, phoneMaskOptions} from '../masks';
 
 @Component({
   selector: 'app-forms-experiment',
@@ -16,7 +16,8 @@ import {dateMaskOptions} from '../mask';
 export class FormsExperimentComponent {
   DestinationName = DestinationName;
   ReceiverType = ReceiverType;
-  options = dateMaskOptions;
+  dateMaskOptions = dateMaskOptions;
+  phoneMaskOptions = phoneMaskOptions;
 
   form = new FormGroup({
     fromCity: new FormControl<string>(''),
@@ -30,7 +31,7 @@ export class FormsExperimentComponent {
       inn: new FormControl<number | null>(null),
       name: new FormControl<string>(''),
       lastName: new FormControl<string>(''),
-      number: new FormControl<number | null>(null)
+      phone: new FormControl<number | null>(null)
     }),
   });
 
