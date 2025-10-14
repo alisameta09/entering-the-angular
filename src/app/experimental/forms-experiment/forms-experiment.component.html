@@ -31,7 +31,7 @@
           type="text"
           placeholder="Дата вылета"
           formControlName="date"
-          [maskito]="options"
+          [maskito]="dateMaskOptions"
         >
       </label>
 
@@ -120,7 +120,8 @@
           class="tt-input"
           type="text"
           placeholder="Номер телефона"
-          formControlName="number"
+          formControlName="phone"
+          [maskito]="phoneMaskOptions"
         >
       </label>
 
