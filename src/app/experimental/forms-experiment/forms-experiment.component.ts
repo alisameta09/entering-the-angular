@@ -1,11 +1,14 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {DestinationName, ReceiverType} from '../const';
+import {MaskitoDirective} from '@maskito/angular';
+import {dateMaskOptions} from '../mask';
 
 @Component({
   selector: 'app-forms-experiment',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaskitoDirective
   ],
   templateUrl: './forms-experiment.component.html',
   styleUrl: './forms-experiment.component.scss'
@@ -13,6 +16,7 @@ import {DestinationName, ReceiverType} from '../const';
 export class FormsExperimentComponent {
   DestinationName = DestinationName;
   ReceiverType = ReceiverType;
+  options = dateMaskOptions;
 
   form = new FormGroup({
     fromCity: new FormControl<string>(''),
