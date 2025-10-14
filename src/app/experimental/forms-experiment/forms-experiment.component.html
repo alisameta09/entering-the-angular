@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
   <div>
-    <h4 class="h4 mb16">Информация о туре</h4>
+    <h4 class="h4 mb20">Информация о туре</h4>
 
     <label class="tt-control-label mb16">
       Город вылета
@@ -12,7 +12,7 @@
       >
     </label>
 
-    <div class="client-data__wrapper">
+    <div class="tour-data__wrapper">
       <label class="tt-control-label mb16">
         Страна
         <select class="tt-input" formControlName="destination">
@@ -58,20 +58,21 @@
     </div>
     <label class="tt-control-label mb16">
       Дополнительно
-      <input
+      <textarea
+        (input)="onTextAreaInput($event)"
         class="tt-input"
         type="text"
         placeholder="Дополнительные пожелания"
         formControlName="info"
-      >
+      ></textarea>
     </label>
 
   </div>
 
   <div>
-    <h6 class="h6 mb16">Данные для связи</h6>
+    <h6 class="h6 mb20 mt20">Данные для связи</h6>
 
-    <div class="client-data__wrapper" formGroupName="contact">
+    <div class="tour-data__wrapper" formGroupName="contact">
 
       <label class="tt-control-label mb16">
         Тип заказчика
@@ -90,6 +91,10 @@
             placeholder="Введите ИНН"
             formControlName="inn"
           >
+          @if (form.controls.contact.controls.inn.touched &&
+          form.controls.contact.controls.inn.hasError('required')) {
+            <small>Это поле обязательно!</small>
+          }
         </label>
       } @else {
         <label class="tt-control-label mb16">
@@ -103,7 +108,6 @@
         </label>
       }
 
-
       <label class="tt-control-label mb16">
         Имя
         <input
@@ -112,6 +116,10 @@
           placeholder="Введите имя"
           formControlName="name"
         >
+        @if (form.controls.contact.controls.name.touched &&
+        form.controls.contact.controls.name.hasError('required')) {
+          <small>Это поле обязательно!</small>
+        }
       </label>
 
       <label class="tt-control-label mb16">
@@ -123,8 +131,11 @@
           formControlName="phone"
           [maskito]="phoneMaskOptions"
         >
+        @if (form.controls.contact.controls.phone.touched &&
+        form.controls.contact.controls.phone.hasError('required')) {
+          <small>Это поле обязательно!</small>
+        }
       </label>
-
     </div>
   </div>
 

@@ -7,7 +7,7 @@
   margin: 0 auto;
 }
 
-.client-data__wrapper {
+.tour-data__wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
@@ -19,4 +19,8 @@
 
 .from-city {
   width: 315px;
+}
+
+textarea::-webkit-resizer {
+  display: none;
 }
