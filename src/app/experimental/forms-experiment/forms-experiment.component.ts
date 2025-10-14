@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject, Renderer2} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DestinationName, ReceiverType} from '../const';
 import {MaskitoDirective} from '@maskito/angular';
@@ -25,6 +25,8 @@ function getContactForm() {
   styleUrl: './forms-experiment.component.scss'
 })
 export class FormsExperimentComponent {
+  r2 = inject(Renderer2);
+
   DestinationName = DestinationName;
   ReceiverType = ReceiverType;
   dateMaskOptions = dateMaskOptions;
@@ -55,6 +57,13 @@ export class FormsExperimentComponent {
             );
           }})
 
+  }
+
+  onTextAreaInput(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+
+    this.r2.setStyle(textarea, 'height', 'auto');
+    this.r2.setStyle(textarea, 'height', textarea.scrollHeight + 'px');
   }
 
   onSubmit(event: SubmitEvent) {

@@ -12,7 +12,7 @@
       >
     </label>
 
-    <div class="client-data__wrapper">
+    <div class="tour-data__wrapper">
       <label class="tt-control-label mb16">
         Страна
         <select class="tt-input" formControlName="destination">
@@ -58,12 +58,13 @@
     </div>
     <label class="tt-control-label mb16">
       Дополнительно
-      <input
+      <textarea
+        (input)="onTextAreaInput($event)"
         class="tt-input"
         type="text"
         placeholder="Дополнительные пожелания"
         formControlName="info"
-      >
+      ></textarea>
     </label>
 
   </div>
@@ -71,7 +72,7 @@
   <div>
     <h6 class="h6 mb20 mt20">Данные для связи</h6>
 
-    <div class="client-data__wrapper" formGroupName="contact">
+    <div class="tour-data__wrapper" formGroupName="contact">
 
       <label class="tt-control-label mb16">
         Тип заказчика
