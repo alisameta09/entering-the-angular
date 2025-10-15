@@ -6,3 +6,9 @@ export interface Tour {
   tourists?: string,
   info?: string,
 }
+
+export interface Feature {
+  code: string,
+  label: string,
+  value: boolean
+}

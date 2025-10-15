@@ -170,6 +170,20 @@
     </div>
   </div>
 
+  <div [formGroup]="form.controls.contact.controls.feature">
+    <h6 class="h6 mb20 mt20">Выберите категорию отеля</h6>
+    <div class="hotel-category__wrapper mb16">
+
+      @for (control of form.controls.contact.controls.feature.controls | keyvalue: sort; track control; let i = $index) {
+        <label>
+          {{ features[i].label }}
+          <input type="checkbox" [formControlName]="control.key">
+        </label>
+      }
+    </div>
+
+  </div>
+
   <button class="btn" type="submit">Отправить заявку</button>
 
 </form>

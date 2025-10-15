@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Tour} from './mock.interfaces';
+import {Tour, Feature} from './mock.interfaces';
 import {Observable, of} from 'rxjs';
 import {DestinationName} from './const';
 
@@ -9,7 +9,7 @@ import {DestinationName} from './const';
 export class MockService {
 
   getTours(): Observable<Tour[]> {
-    const tours = [
+    return of([
       {
         fromCity: 'Москва',
         destination: DestinationName.EGYPT,
@@ -26,8 +26,26 @@ export class MockService {
         tourists: '2 взр',
         info: 'отель 5*, питание: Все включено'
       }
-    ];
+    ]);
+  }
 
-    return of(tours);
+  getFeatures(): Observable<Feature[]> {
+    return of([
+      {
+        code: 'fiveStarHotel',
+        label: 'Отель 5*',
+        value: true
+      },
+      {
+        code: 'fourStarHotel',
+        label: 'Отель 4*',
+        value: false
+      },
+      {
+        code: 'threeStarHotel',
+        label: 'Отель 3*',
+        value: false
+      }
+    ]);
   }
 }
