@@ -1,3 +1,7 @@
+body {
+  position: relative;
+}
+
 :host {
   display: grid;
   grid-template-columns: 640px;
@@ -7,7 +11,19 @@
   margin: 0 auto;
 }
 
-.tour-data__wrapper {
+.logo-small {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  cursor: pointer;
+}
+
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tour-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
@@ -23,4 +39,15 @@
 
 textarea::-webkit-resizer {
   display: none;
+}
+
+.add-tour-btn {
+  width: max-content;
+}
+
+.btn {
+  transition: all 0.2s ease; /* Плавная анимация */
+}
+.btn:active {
+  transform: translateY(2px); /* Имитация нажатия */
 }

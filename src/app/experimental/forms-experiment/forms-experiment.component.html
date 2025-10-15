@@ -1,78 +1,109 @@
+<a [routerLink]="['/profile/me']">
+  <img
+    src="/assets/svg/logo-small.svg"
+    alt="Логотип Tik-Talk"
+    class="mt20 mb20 logo-small"
+  >
+</a>
+
 <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
-  <div>
+  <div class="header__wrapper">
     <h4 class="h4 mb20">Информация о туре</h4>
 
-    <label class="tt-control-label mb16">
-      Город вылета
-      <input
-        class="tt-input from-city"
-        type="text"
-        placeholder="Введите название"
-        formControlName="fromCity"
-      >
-    </label>
-
-    <div class="tour-data__wrapper">
-      <label class="tt-control-label mb16">
-        Страна
-        <select class="tt-input" formControlName="destination">
-          <option [value]="DestinationName.TURKEY">Турция</option>
-          <option [value]="DestinationName.EGYPT">Египет</option>
-          <option [value]="DestinationName.UAE">ОАЭ</option>
-          <option [value]="DestinationName.THAILAND">Таиланд</option>
-          <option [value]="DestinationName.RUSSIA">Россия</option>
-        </select>
-      </label>
-
-      <label class="tt-control-label mb16">
-        Дата вылета
-        <input
-          class="tt-input"
-          type="text"
-          placeholder="Дата вылета"
-          formControlName="date"
-          [maskito]="dateMaskOptions"
-        >
-      </label>
-
-      <label class="tt-control-label mb16">
-        Количество ночей
-        <input
-          class="tt-input"
-          type="text"
-          placeholder="Количество ночей"
-          formControlName="duration"
-        >
-      </label>
-
-      <label class="tt-control-label mb16">
-        Туристы
-        <input
-          class="tt-input"
-          type="text"
-          placeholder="Туристы"
-          formControlName="tourists"
-        >
-      </label>
-
-    </div>
-    <label class="tt-control-label mb16">
-      Дополнительно
-      <textarea
-        (input)="onTextAreaInput($event)"
-        class="tt-input"
-        type="text"
-        placeholder="Дополнительные пожелания"
-        formControlName="info"
-      ></textarea>
-    </label>
-
+    <button
+      (click)="addTour()"
+      class="btn mb20 add-tour-btn"
+    >Добавить тур
+    </button>
   </div>
+
+  <div class="tour-info__wrapper" formArrayName="tours">
+
+    @for (tour of form.controls.tours.controls; track tour; let i = $index) {
+
+      <div [formGroup]="tour" class="tour-block">
+
+        <label class="tt-control-label mb16">
+          Город вылета
+          <input
+            class="tt-input from-city"
+            type="text"
+            placeholder="Введите название"
+            formControlName="fromCity"
+          >
+        </label>
+
+        <div class="tour-info-grid">
+          <label class="tt-control-label mb16">
+            Страна
+            <select class="tt-input" formControlName="destination">
+              <option [value]="DestinationName.TURKEY">Турция</option>
+              <option [value]="DestinationName.EGYPT">Египет</option>
+              <option [value]="DestinationName.UAE">ОАЭ</option>
+              <option [value]="DestinationName.THAILAND">Таиланд</option>
+              <option [value]="DestinationName.RUSSIA">Россия</option>
+            </select>
+          </label>
+
+          <label class="tt-control-label mb16">
+            Дата вылета
+            <input
+              class="tt-input"
+              type="text"
+              placeholder="дд.мм.гггг"
+              formControlName="date"
+              [maskito]="dateMaskOptions"
+            >
+          </label>
+
+          <label class="tt-control-label mb16">
+            Количество ночей
+            <input
+              class="tt-input"
+              type="text"
+              placeholder="Количество ночей"
+              formControlName="duration"
+            >
+          </label>
+
+          <label class="tt-control-label mb16">
+            Туристы
+            <input
+              class="tt-input"
+              type="text"
+              placeholder="Туристы"
+              formControlName="tourists"
+            >
+          </label>
+
+        </div>
+        <label class="tt-control-label mb16">
+          Дополнительные пожелания
+          <textarea
+            (input)="onTextAreaInput($event)"
+            class="tt-input"
+            type="text"
+            placeholder="Дополнительные пожелания"
+            formControlName="info"
+          ></textarea>
+        </label>
+
+      </div>
+
+      <button
+        (click)="deleteTour(i)"
+        class="btn mb20"
+      >Удалить тур
+      </button>
+
+    }
+  </div>
+
 
   <div>
     <h6 class="h6 mb20 mt20">Данные для связи</h6>
 
-    <div class="tour-data__wrapper" formGroupName="contact">
+    <div class="tour-info-grid" [formGroup]="form.controls.contact">
 
       <label class="tt-control-label mb16">
         Тип заказчика
