@@ -26,7 +26,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   styleUrl: './chat-messages-wrapper.component.scss'
 })
 export class ChatMessagesWrapperComponent implements OnInit, AfterViewInit {
-
   private readonly PADDING = 24;
 
   chatService = inject(ChatService);
@@ -51,14 +50,14 @@ export class ChatMessagesWrapperComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.resizeFeed();
+    this.resizeChatPage();
 
     fromEvent(window, 'resize')
       .pipe(
         debounceTime(100),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe(() => this.resizeFeed());
+      .subscribe(() => this.resizeChatPage());
 
     this.lastMessage?.changes
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -77,7 +76,7 @@ export class ChatMessagesWrapperComponent implements OnInit, AfterViewInit {
     })
   }
 
-  resizeFeed(): void {
+  resizeChatPage(): void {
     const el = this.hostElement.nativeElement;
     const {top} = el.getBoundingClientRect();
     const height = (window.innerHeight - top - this.PADDING);

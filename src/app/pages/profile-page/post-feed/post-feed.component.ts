@@ -16,15 +16,15 @@ import {ProfileService} from '../../../data/services/profile.service';
   styleUrl: './post-feed.component.scss'
 })
 export class PostFeedComponent implements AfterViewInit {
-  PADDING = 24 * 2;
+  private readonly PADDING = 24 * 2;
 
   r2 = inject(Renderer2)
   postService = inject(PostService);
   profile = inject(ProfileService).me;
   hostElement = inject(ElementRef);
+  destroyRef = inject(DestroyRef);
 
   feed = this.postService.posts;
-  destroyRef = inject(DestroyRef);
 
   constructor() {
     firstValueFrom(this.postService.fetchPosts());

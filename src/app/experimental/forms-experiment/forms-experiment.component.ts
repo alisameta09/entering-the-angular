@@ -1,10 +1,11 @@
-import {Component, inject, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, DestroyRef, ElementRef, inject, Renderer2} from '@angular/core';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DestinationName, ReceiverType} from '../const';
 import {MaskitoDirective} from '@maskito/angular';
 import {dateMaskOptions, phoneMaskOptions} from '../masks';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {RouterLink} from '@angular/router';
+import {debounceTime, fromEvent} from 'rxjs';
 
 function getContactForm() {
   return new FormGroup({
@@ -37,8 +38,12 @@ function getTourForm() {
   templateUrl: './forms-experiment.component.html',
   styleUrl: './forms-experiment.component.scss'
 })
-export class FormsExperimentComponent {
+export class FormsExperimentComponent implements AfterViewInit {
+  private readonly PADDING = 24 * 2;
+
   r2 = inject(Renderer2);
+  hostElement = inject(ElementRef);
+  destroyRef = inject(DestroyRef);
 
   DestinationName = DestinationName;
   ReceiverType = ReceiverType;
@@ -69,11 +74,30 @@ export class FormsExperimentComponent {
       })
   }
 
+  ngAfterViewInit() {
+    this.resizePageForm();
+
+    fromEvent(window, 'resize')
+      .pipe(
+        debounceTime(100),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => this.resizePageForm());
+  }
+
   onTextAreaInput(event: Event) {
     const textarea = event.target as HTMLTextAreaElement;
 
     this.r2.setStyle(textarea, 'height', 'auto');
     this.r2.setStyle(textarea, 'height', textarea.scrollHeight + 'px');
+  }
+
+  resizePageForm() {
+    const el = this.hostElement.nativeElement;
+    const {top} = el.getBoundingClientRect();
+    const height = window.innerHeight - top - this.PADDING;
+
+    this.r2.setStyle(el, 'height', `${height}px`);
   }
 
   onSubmit(event: SubmitEvent) {

@@ -9,6 +9,11 @@ body {
   align-items: center;
   width: 50%;
   margin: 0 auto;
+  overflow-y: auto;
+}
+
+:host::-webkit-scrollbar {
+  width: 0;
 }
 
 .logo-small {
@@ -48,6 +53,7 @@ textarea::-webkit-resizer {
 .btn {
   transition: all 0.2s ease; /* Плавная анимация */
 }
+
 .btn:active {
   transform: translateY(2px); /* Имитация нажатия */
 }
