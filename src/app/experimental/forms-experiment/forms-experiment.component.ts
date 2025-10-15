@@ -1,9 +1,10 @@
 import {Component, inject, Renderer2} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DestinationName, ReceiverType} from '../const';
 import {MaskitoDirective} from '@maskito/angular';
 import {dateMaskOptions, phoneMaskOptions} from '../masks';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {RouterLink} from '@angular/router';
 
 function getContactForm() {
   return new FormGroup({
@@ -15,11 +16,23 @@ function getContactForm() {
   })
 }
 
+function getTourForm() {
+  return new FormGroup({
+    fromCity: new FormControl(''),
+    destination: new FormControl(DestinationName.TURKEY),
+    date: new FormControl(''),
+    duration: new FormControl(''),
+    tourists: new FormControl(''),
+    info: new FormControl('')
+  })
+}
+
 @Component({
   selector: 'app-forms-experiment',
   imports: [
     ReactiveFormsModule,
-    MaskitoDirective
+    MaskitoDirective,
+    RouterLink
   ],
   templateUrl: './forms-experiment.component.html',
   styleUrl: './forms-experiment.component.scss'
@@ -33,13 +46,10 @@ export class FormsExperimentComponent {
   phoneMaskOptions = phoneMaskOptions;
 
   form = new FormGroup({
-    fromCity: new FormControl<string>(''),
-    destination: new FormControl<DestinationName>(DestinationName.TURKEY),
-    date: new FormControl<number | null>(null),
-    duration: new FormControl<number | null>(null),
-    tourists: new FormControl<string>(''),
-    info: new FormControl<string>(''),
-    contact: getContactForm(),
+    tours: new FormArray<FormGroup>([
+      getTourForm()
+    ]),
+    contact: getContactForm()
   });
 
   constructor() {
@@ -49,14 +59,14 @@ export class FormsExperimentComponent {
     type.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe(val => {
-          inn.clearValidators();
+        inn.clearValidators();
 
-          if (val === ReceiverType.LEGAL) {
-            inn.setValidators(
-              [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
-            );
-          }})
-
+        if (val === ReceiverType.LEGAL) {
+          inn.setValidators(
+            [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
+          );
+        }
+      })
   }
 
   onTextAreaInput(event: Event) {
@@ -73,7 +83,13 @@ export class FormsExperimentComponent {
     if (this.form.invalid) return;
 
     console.log(this.form.getRawValue());
-
   }
 
+  addTour() {
+    this.form.controls.tours.push(getTourForm());
+  }
+
+  deleteTour(index: number) {
+    this.form.controls.tours.removeAt(index, {emitEvent: false});
+  }
 }
