@@ -52,3 +52,8 @@ textarea::-webkit-resizer {
 .btn:active {
   transform: translateY(2px);
 }
+
+.hotel-category__wrapper {
+  display: grid;
+  grid-gap: 16px;
+}

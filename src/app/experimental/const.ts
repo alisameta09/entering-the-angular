@@ -7,6 +7,6 @@ export enum DestinationName {
 }
 
 export enum ReceiverType {
-    PERSON = 'PERSON',
-    LEGAL = 'LEGAL'
+  PERSON = 'PERSON',
+  LEGAL = 'LEGAL'
 }

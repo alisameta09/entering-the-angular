@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, DestroyRef, ElementRef, inject, Renderer2} from '@angular/core';
-import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, FormRecord, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DestinationName, ReceiverType} from '../const';
 import {MaskitoDirective} from '@maskito/angular';
 import {dateMaskOptions, phoneMaskOptions} from '../masks';
@@ -7,7 +7,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {RouterLink} from '@angular/router';
 import {debounceTime, fromEvent} from 'rxjs';
 import {MockService} from '../mock.service';
-import {Tour} from '../mock.interfaces';
+import {Feature, Tour} from '../mock.interfaces';
+import {KeyValuePipe} from '@angular/common';
 
 function getContactForm() {
   return new FormGroup({
@@ -15,7 +16,8 @@ function getContactForm() {
     inn: new FormControl<number | null>(null),
     name: new FormControl<string>('', Validators.required),
     lastName: new FormControl<string>(''),
-    phone: new FormControl<number | null>(null, Validators.required)
+    phone: new FormControl<number | null>(null, Validators.required),
+    feature: new FormRecord({})
   })
 }
 
@@ -35,7 +37,8 @@ function getTourForm(initialValue: Tour = {}) {
   imports: [
     ReactiveFormsModule,
     MaskitoDirective,
-    RouterLink
+    RouterLink,
+    KeyValuePipe
   ],
   templateUrl: './forms-experiment.component.html',
   styleUrl: './forms-experiment.component.scss'
@@ -52,6 +55,7 @@ export class FormsExperimentComponent implements AfterViewInit {
   ReceiverType = ReceiverType;
   dateMaskOptions = dateMaskOptions;
   phoneMaskOptions = phoneMaskOptions;
+  features: Feature[] = [];
 
   form = new FormGroup({
     tours: new FormArray<FormGroup>([
@@ -64,23 +68,36 @@ export class FormsExperimentComponent implements AfterViewInit {
     const type = this.form.controls.contact.controls.type;
     const inn = this.form.controls.contact.controls.inn;
 
-    this.mockService.getTours()
+    // this.mockService.getTours()
+    //   .pipe(takeUntilDestroyed())
+    //   .subscribe(tours => {
+    //     const toursForm = this.form.controls.tours;
+    //
+    //     // while (toursForm.controls.length > 0) {
+    //     //   toursForm.removeAt(0)
+    //     // }
+    //
+    //     toursForm.clear();
+    //
+    //     for (const tour of tours) {
+    //       toursForm.push(getTourForm(tour))
+    //     }
+    //
+    //     // toursForm.setControl(0, getTourForm(tours[1]));
+    //     // console.log(toursForm.at(0));
+    //   })
+
+    this.mockService.getFeatures()
       .pipe(takeUntilDestroyed())
-      .subscribe(tours => {
-        const toursForm = this.form.controls.tours;
+      .subscribe(features => {
+        this.features = features;
 
-        // while (toursForm.controls.length > 0) {
-        //   toursForm.removeAt(0)
-        // }
-
-        toursForm.clear();
-
-        for (const tour of tours) {
-          toursForm.push(getTourForm(tour))
+        for (const feature of features) {
+          this.form.controls.contact.controls.feature.addControl(
+            feature.code,
+            new FormControl(feature.value)
+          )
         }
-
-        // toursForm.setControl(0, getTourForm(tours[1]));
-        // console.log(toursForm.at(0));
       })
 
     type.valueChanges
@@ -138,4 +155,6 @@ export class FormsExperimentComponent implements AfterViewInit {
   deleteTour(index: number) {
     this.form.controls.tours.removeAt(index, {emitEvent: false});
   }
+
+  sort = () => 0
 }
