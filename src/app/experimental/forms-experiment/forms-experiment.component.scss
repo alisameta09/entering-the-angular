@@ -1,19 +1,14 @@
-body {
-  position: relative;
-}
-
 :host {
   display: grid;
   grid-template-columns: 640px;
   height: 100%;
   align-items: center;
-  width: 50%;
-  margin: 0 auto;
+  justify-content: center;
   overflow-y: auto;
 }
 
 :host::-webkit-scrollbar {
-  width: 0;
+  display: none;
 }
 
 .logo-small {
@@ -51,9 +46,9 @@ textarea::-webkit-resizer {
 }
 
 .btn {
-  transition: all 0.2s ease; /* Плавная анимация */
+  transition: all 0.2s ease;
 }
 
 .btn:active {
-  transform: translateY(2px); /* Имитация нажатия */
+  transform: translateY(2px);
 }

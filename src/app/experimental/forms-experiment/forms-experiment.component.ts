@@ -6,6 +6,8 @@ import {dateMaskOptions, phoneMaskOptions} from '../masks';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {RouterLink} from '@angular/router';
 import {debounceTime, fromEvent} from 'rxjs';
+import {MockService} from '../mock.service';
+import {Tour} from '../mock.interfaces';
 
 function getContactForm() {
   return new FormGroup({
@@ -17,14 +19,14 @@ function getContactForm() {
   })
 }
 
-function getTourForm() {
+function getTourForm(initialValue: Tour = {}) {
   return new FormGroup({
-    fromCity: new FormControl(''),
-    destination: new FormControl(DestinationName.TURKEY),
-    date: new FormControl(''),
-    duration: new FormControl(''),
-    tourists: new FormControl(''),
-    info: new FormControl('')
+    fromCity: new FormControl(initialValue.fromCity ?? ''),
+    destination: new FormControl(initialValue.destination ?? DestinationName.TURKEY),
+    date: new FormControl(initialValue.date ?? ''),
+    duration: new FormControl(initialValue.duration ?? ''),
+    tourists: new FormControl(initialValue.tourists ?? ''),
+    info: new FormControl(initialValue.info ?? '')
   })
 }
 
@@ -44,6 +46,7 @@ export class FormsExperimentComponent implements AfterViewInit {
   r2 = inject(Renderer2);
   hostElement = inject(ElementRef);
   destroyRef = inject(DestroyRef);
+  mockService = inject(MockService);
 
   DestinationName = DestinationName;
   ReceiverType = ReceiverType;
@@ -60,6 +63,25 @@ export class FormsExperimentComponent implements AfterViewInit {
   constructor() {
     const type = this.form.controls.contact.controls.type;
     const inn = this.form.controls.contact.controls.inn;
+
+    this.mockService.getTours()
+      .pipe(takeUntilDestroyed())
+      .subscribe(tours => {
+        const toursForm = this.form.controls.tours;
+
+        // while (toursForm.controls.length > 0) {
+        //   toursForm.removeAt(0)
+        // }
+
+        toursForm.clear();
+
+        for (const tour of tours) {
+          toursForm.push(getTourForm(tour))
+        }
+
+        // toursForm.setControl(0, getTourForm(tours[1]));
+        // console.log(toursForm.at(0));
+      })
 
     type.valueChanges
       .pipe(takeUntilDestroyed())
