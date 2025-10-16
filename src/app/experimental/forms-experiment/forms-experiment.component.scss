@@ -57,3 +57,15 @@ textarea::-webkit-resizer {
   display: grid;
   grid-gap: 16px;
 }
+
+.tt-input.ng-invalid.ng-touched {
+  border: 1px solid tomato;
+}
+
+.validation {
+  display: none;
+}
+
+.tt-input.ng-invalid.ng-touched + .validation {
+  display: block;
+}
