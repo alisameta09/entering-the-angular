@@ -1,5 +1,14 @@
 import {AfterViewInit, Component, DestroyRef, ElementRef, inject, Renderer2} from '@angular/core';
-import {FormArray, FormControl, FormGroup, FormRecord, ReactiveFormsModule, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  FormRecord,
+  ReactiveFormsModule,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 import {DestinationName, ReceiverType} from '../const';
 import {MaskitoDirective} from '@maskito/angular';
 import {dateMaskOptions, phoneMaskOptions} from '../masks';
@@ -31,6 +40,20 @@ function getTourForm(initialValue: Tour = {}) {
     info: new FormControl(initialValue.info ?? '')
   })
 }
+
+// function validateStartWith(ForbiddenLetter: string): ValidatorFn {
+//   return (control: AbstractControl) => {
+//     return control.value.startsWith(ForbiddenLetter)
+//       ? {startsWith: {message: `${ForbiddenLetter} - привет!`}}
+//       : null
+//   }
+// }
+
+// const validateStartWith: ValidatorFn = (control: AbstractControl) => {
+//   return control.value.startsWith('я')
+//     ? {startsWith: 'я яяяяяя'}
+//     : null
+// }
 
 @Component({
   selector: 'app-forms-experiment',

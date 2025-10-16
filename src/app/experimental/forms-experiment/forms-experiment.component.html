@@ -3,7 +3,7 @@
     src="/assets/svg/logo-small.svg"
     alt="Логотип Tik-Talk"
     class="mt40 logo-small"
-  >
+  />
 </a>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
@@ -30,8 +30,13 @@
             type="text"
             placeholder="Введите название"
             formControlName="fromCity"
-          >
+          />
         </label>
+
+<!--        @let fromCity = tour.get('fromCity');-->
+<!--        @if (fromCity?.touched && fromCity!.hasError('startsWith')) {-->
+<!--          <small>{{ fromCity!.getError('startsWith') }}</small>-->
+<!--        }-->
 
         <div class="tour-info-grid">
           <label class="tt-control-label mb16">
@@ -54,7 +59,7 @@
               placeholder="дд.мм.гггг"
               formControlName="date"
               [maskito]="dateMaskOptions"
-            >
+            />
           </label>
 
           <label class="tt-control-label mb16">
@@ -64,7 +69,7 @@
               type="text"
               placeholder="Количество ночей"
               formControlName="duration"
-            >
+            />
           </label>
 
           <label class="tt-control-label mb16">
@@ -134,8 +139,13 @@
             placeholder="Введите фамилию"
             formControlName="lastName"
           />
+
+<!--          @if (form.controls.contact.controls.lastName.touched && form.controls.contact.controls.lastName.hasError('startsWith')) {-->
+<!--            <small>{{ form.controls.contact.controls.lastName.getError('startsWith')?.message }}</small>-->
+<!--          }-->
         </label>
       }
+
 
       <label class="tt-control-label mb16">
         Имя
@@ -156,7 +166,7 @@
           placeholder="Номер телефона"
           formControlName="phone"
           [maskito]="phoneMaskOptions"
-        >
+        />
         @if (form.controls.contact.controls.phone.touched &&
         form.controls.contact.controls.phone.hasError('required')) {
           <small>Это поле обязательно!</small>
@@ -173,7 +183,7 @@
         i = $index) {
         <label>
           {{ features[i].label }}
-          <input type="checkbox" [formControlName]="control.key">
+          <input type="checkbox" [formControlName]="control.key"/>
         </label>
       }
     </div>
