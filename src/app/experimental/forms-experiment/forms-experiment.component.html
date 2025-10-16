@@ -122,11 +122,8 @@
             type="text"
             placeholder="Введите ИНН"
             formControlName="inn"
-          >
-          @if (form.controls.contact.controls.inn.touched &&
-          form.controls.contact.controls.inn.hasError('required')) {
-            <small>Это поле обязательно!</small>
-          }
+          />
+          <small class="validation">Это поле обязательно!</small>
         </label>
       } @else {
         <label class="tt-control-label mb16">
@@ -136,7 +133,7 @@
             type="text"
             placeholder="Введите фамилию"
             formControlName="lastName"
-          >
+          />
         </label>
       }
 
@@ -147,11 +144,8 @@
           type="text"
           placeholder="Введите имя"
           formControlName="name"
-        >
-        @if (form.controls.contact.controls.name.touched &&
-        form.controls.contact.controls.name.hasError('required')) {
-          <small>Это поле обязательно!</small>
-        }
+        />
+        <small class="validation">Это поле обязательно!</small>
       </label>
 
       <label class="tt-control-label mb16">
