@@ -41,6 +41,28 @@ function getTourForm(initialValue: Tour = {}) {
   })
 }
 
+function validateDateRange({fromControlName, toControlName}: {
+  fromControlName: string,
+  toControlName: string
+}): ValidatorFn {
+  return (control: AbstractControl) => {
+    const fromControl = control.get(fromControlName);
+    const toControl = control.get(toControlName);
+
+    if (!fromControl || !toControl) return null;
+
+    const fromDate = new Date(fromControl.value);
+    const toDate = new Date(toControl.value);
+
+    if (fromDate && toDate && toDate < fromDate) {
+      toControl.setErrors({dateRange: {message: 'Дата конца тура не может быть ранее даты начала!'}});
+      return {dateRange: {message: 'Дата конца тура не может быть ранее даты начала!'}};
+    }
+
+    return null;
+  }
+}
+
 // function validateStartWith(ForbiddenLetter: string): ValidatorFn {
 //   return (control: AbstractControl) => {
 //     return control.value.startsWith(ForbiddenLetter)
@@ -84,7 +106,11 @@ export class FormsExperimentComponent implements AfterViewInit {
     tours: new FormArray<FormGroup>([
       getTourForm()
     ]),
-    contact: getContactForm()
+    contact: getContactForm(),
+    dateRange: new FormGroup({
+      from: new FormControl<string>(''),
+      to: new FormControl<string>('')
+    }, validateDateRange({fromControlName: 'from', toControlName: 'to'})),
   });
 
   constructor() {

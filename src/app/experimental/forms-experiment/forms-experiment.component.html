@@ -33,10 +33,10 @@
           />
         </label>
 
-<!--        @let fromCity = tour.get('fromCity');-->
-<!--        @if (fromCity?.touched && fromCity!.hasError('startsWith')) {-->
-<!--          <small>{{ fromCity!.getError('startsWith') }}</small>-->
-<!--        }-->
+        <!--        @let fromCity = tour.get('fromCity');-->
+        <!--        @if (fromCity?.touched && fromCity!.hasError('startsWith')) {-->
+        <!--          <small>{{ fromCity!.getError('startsWith') }}</small>-->
+        <!--        }-->
 
         <div class="tour-info-grid">
           <label class="tt-control-label mb16">
@@ -105,6 +105,32 @@
     }
   </div>
 
+  <div>
+    <h6 class="h6 mb20 mt20">Точная дата тура</h6>
+    <div class="two-columns" formGroupName="dateRange">
+      <label class="tt-control-label mb16">
+        От
+        <input
+          class="tt-input"
+          type="date"
+          formControlName="from"
+        />
+      </label>
+
+      <label class="tt-control-label mb16">
+        До
+        <input
+          class="tt-input"
+          type="date"
+          formControlName="to"
+        />
+        @if (form.controls.dateRange.touched && form.controls.dateRange.hasError('dateRange')) {
+          <small>{{ form.controls.dateRange.getError('dateRange')?.message }}</small>
+        }
+      </label>
+
+    </div>
+  </div>
 
   <div>
     <h6 class="h6 mb20 mt20">Данные для связи</h6>
@@ -139,10 +165,9 @@
             placeholder="Введите фамилию"
             formControlName="lastName"
           />
-
-<!--          @if (form.controls.contact.controls.lastName.touched && form.controls.contact.controls.lastName.hasError('startsWith')) {-->
-<!--            <small>{{ form.controls.contact.controls.lastName.getError('startsWith')?.message }}</small>-->
-<!--          }-->
+          <!--          @if (form.controls.contact.controls.lastName.touched && form.controls.contact.controls.lastName.hasError('startsWith')) {-->
+          <!--            <small>{{ form.controls.contact.controls.lastName.getError('startsWith')?.message }}</small>-->
+          <!--          }-->
         </label>
       }
 

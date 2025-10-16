@@ -69,3 +69,14 @@ textarea::-webkit-resizer {
 .tt-input.ng-invalid.ng-touched + .validation {
   display: block;
 }
+
+.two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.tt-input::-webkit-calendar-picker-indicator {
+  background: var(--primary-color);
+  cursor: pointer;
+}
