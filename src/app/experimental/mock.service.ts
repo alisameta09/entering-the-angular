@@ -12,7 +12,7 @@ export class MockService {
     return of([
       {
         fromCity: 'Москва',
-        destination: DestinationName.EGYPT,
+        destination: DestinationName.Egypt,
         date: '',
         duration: '9-13',
         tourists: '2 взр',
@@ -20,7 +20,7 @@ export class MockService {
       },
       {
         fromCity: 'Москва',
-        destination: DestinationName.TURKEY,
+        destination: DestinationName.Turkey,
         date: '',
         duration: '6',
         tourists: '2 взр',

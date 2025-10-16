@@ -12,7 +12,7 @@ import {KeyValuePipe} from '@angular/common';
 
 function getContactForm() {
   return new FormGroup({
-    type: new FormControl<ReceiverType>(ReceiverType.PERSON),
+    type: new FormControl<ReceiverType>(ReceiverType.Person),
     inn: new FormControl<number | null>(null),
     name: new FormControl<string>('', Validators.required),
     lastName: new FormControl<string>(''),
@@ -24,7 +24,7 @@ function getContactForm() {
 function getTourForm(initialValue: Tour = {}) {
   return new FormGroup({
     fromCity: new FormControl(initialValue.fromCity ?? ''),
-    destination: new FormControl(initialValue.destination ?? DestinationName.TURKEY),
+    destination: new FormControl(initialValue.destination ?? ''),
     date: new FormControl(initialValue.date ?? ''),
     duration: new FormControl(initialValue.duration ?? ''),
     tourists: new FormControl(initialValue.tourists ?? ''),
@@ -51,11 +51,11 @@ export class FormsExperimentComponent implements AfterViewInit {
   destroyRef = inject(DestroyRef);
   mockService = inject(MockService);
 
-  DestinationName = DestinationName;
   ReceiverType = ReceiverType;
   dateMaskOptions = dateMaskOptions;
   phoneMaskOptions = phoneMaskOptions;
   features: Feature[] = [];
+  destinations = Object.values(DestinationName);
 
   form = new FormGroup({
     tours: new FormArray<FormGroup>([
@@ -105,7 +105,7 @@ export class FormsExperimentComponent implements AfterViewInit {
       .subscribe(val => {
         inn.clearValidators();
 
-        if (val === ReceiverType.LEGAL) {
+        if (val === ReceiverType.Legal) {
           inn.setValidators(
             [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
           );
