@@ -1,12 +1,12 @@
 export enum DestinationName {
-  TURKEY = 'TURKEY',
-  EGYPT = 'EGYPT',
-  UAE = 'UAE',
-  THAILAND = 'THAILAND',
-  RUSSIA = 'RUSSIA',
+  Turkey = 'Турция',
+  Egypt = 'Египет',
+  UAE = 'ОАЭ',
+  Thailand = 'Таиланд',
+  Russia = 'Россия',
 }
 
 export enum ReceiverType {
-  PERSON = 'PERSON',
-  LEGAL = 'LEGAL'
+  Person = 'Физ. лицо',
+  Legal = 'Юр. лицо'
 }
