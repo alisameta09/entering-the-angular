@@ -181,6 +181,10 @@
           formControlName="name"
         />
         <small class="validation">Это поле обязательно!</small>
+
+        @if (form.controls.contact.controls.name.touched && form.controls.contact.controls.name.hasError('nameValid')) {
+          <small>{{ form.controls.contact.controls.name.getError('nameValid')?.message }}</small>
+        }
       </label>
 
       <label class="tt-control-label mb16">

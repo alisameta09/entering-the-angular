@@ -18,17 +18,18 @@ import {debounceTime, fromEvent} from 'rxjs';
 import {MockService} from '../mock.service';
 import {Feature, Tour} from '../mock.interfaces';
 import {KeyValuePipe} from '@angular/common';
+import {NameValidator} from '../name.validator';
 
-function getContactForm() {
-  return new FormGroup({
-    type: new FormControl<ReceiverType>(ReceiverType.Person),
-    inn: new FormControl<number | null>(null),
-    name: new FormControl<string>('', Validators.required),
-    lastName: new FormControl<string>(''),
-    phone: new FormControl<number | null>(null, Validators.required),
-    feature: new FormRecord({})
-  })
-}
+// function getContactForm() {
+//   return new FormGroup({
+//     type: new FormControl<ReceiverType>(ReceiverType.Person),
+//     inn: new FormControl<number | null>(null),
+//     name: new FormControl<string>('', Validators.required, [nameValidator.validate]),
+//     lastName: new FormControl<string>(''),
+//     phone: new FormControl<number | null>(null, Validators.required),
+//     feature: new FormRecord({})
+//   })
+// }
 
 function getTourForm(initialValue: Tour = {}) {
   return new FormGroup({
@@ -95,6 +96,7 @@ export class FormsExperimentComponent implements AfterViewInit {
   hostElement = inject(ElementRef);
   destroyRef = inject(DestroyRef);
   mockService = inject(MockService);
+  nameValidator = inject(NameValidator);
 
   ReceiverType = ReceiverType;
   dateMaskOptions = dateMaskOptions;
@@ -106,7 +108,18 @@ export class FormsExperimentComponent implements AfterViewInit {
     tours: new FormArray<FormGroup>([
       getTourForm()
     ]),
-    contact: getContactForm(),
+    contact: new FormGroup({
+      type: new FormControl<ReceiverType>(ReceiverType.Person),
+      inn: new FormControl<number | null>(null),
+      name: new FormControl<string>('', {
+        validators: [Validators.required],
+        asyncValidators: [this.nameValidator.validate.bind(this.nameValidator)],
+        updateOn: 'blur'
+      }),
+      lastName: new FormControl<string>(''),
+      phone: new FormControl<number | null>(null, Validators.required),
+      feature: new FormRecord({})
+    }),
     dateRange: new FormGroup({
       from: new FormControl<string>(''),
       to: new FormControl<string>('')
