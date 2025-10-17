@@ -80,3 +80,7 @@ textarea::-webkit-resizer {
   background: var(--primary-color);
   cursor: pointer;
 }
+
+.tt-input.ng-pending {
+  border: 1px dashed var(--primary-color);
+}
