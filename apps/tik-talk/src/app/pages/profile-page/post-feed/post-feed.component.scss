@@ -1,0 +1,9 @@
+:host {
+  display: grid;
+  grid-gap: 16px;
+  overflow-y: auto;
+}
+
+:host::-webkit-scrollbar {
+  width: 0;
+}

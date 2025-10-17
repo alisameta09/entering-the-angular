@@ -1,0 +1,40 @@
+:host {
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  height: 100dvh;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.big-logo__img {
+  margin-left: 232px;
+}
+
+.password-input,
+.username-input {
+  position: relative;
+}
+
+.password-eye-btn,
+.username-telegram-btn {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.password-eye-btn.icon {
+  color: #ffffffbf;
+}
+
+.password-eye-btn.active {
+  color: var(--primary-color);
+}
+
+.username-telegram-btn.icon {
+  color: var(--light-color);
+}

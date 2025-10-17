@@ -1,0 +1,64 @@
+:host {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  grid-gap: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--light-color);
+}
+
+.avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropzone {
+  width: 428px;
+  height: 140px;
+  padding: 16px;
+  border-radius: 2px;
+  border: 1px dashed var(--light-color);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+
+  &:focus-visible {
+    border: none;
+    outline: 1px dashed var(--primary-color);
+  }
+
+  &.fileover {
+    border: 1px dashed var(--primary-color);
+  }
+}
+
+.dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-input {
+  display: none;
+}
+
+.upload-icon {
+  width: 52px;
+  height: 52px;
+  padding: 17px;
+  cursor: pointer;
+}
+
+.dropzone-text {
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.upload-text {
+  color: var(--primary-color);
+  text-decoration: underline;
+  cursor: pointer;
+}

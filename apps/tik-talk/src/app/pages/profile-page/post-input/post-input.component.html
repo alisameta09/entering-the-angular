@@ -1,0 +1,16 @@
+@if (profile(); as profile) {
+<app-avatar-circle class="size32" [avatarUrl]="profile.avatarUrl"></app-avatar-circle>
+}
+
+<textarea
+  name="textarea-post"
+  [(ngModel)]="postText"
+  class="hidden-textarea medium-text"
+  (input)="onTextAreaInput($event)"
+  (keyup.enter)="onPostSend()"
+  placeholder="Напишите что-нибудь"
+></textarea>
+
+<button class="icon-btn" (click)="onPostSend()">
+  <svg icon="send-message" class="svg16"></svg>
+</button>
