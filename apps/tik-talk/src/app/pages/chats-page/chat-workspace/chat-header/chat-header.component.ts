@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
-import { AvatarCircleComponent } from '../../../../common-ui/avatar-circle/avatar-circle.component';
-import { Profile } from '../../../../data/interfaces/profile.interface';
-import { SvgIconComponent } from '../../../../common-ui/svg-icon/svg-icon.component';
+import { AvatarCircleComponent } from '../../../../../../../../libs/common-ui/src/lib/components/avatar-circle/avatar-circle.component';
+import { Profile } from '../../../../../../../../libs/profile/src/lib/data/interfaces/profile.interface';
+import { SvgIconComponent } from '../../../../../../../../libs/common-ui/src/lib/components/svg-icon/svg-icon.component';
 
 @Component({
   selector: 'app-chat-header',

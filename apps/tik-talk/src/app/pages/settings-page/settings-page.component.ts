@@ -1,8 +1,8 @@
 import { Component, effect, inject, ViewChild } from '@angular/core';
 import { ProfileHeaderComponent } from '../../common-ui/profile-header/profile-header.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SvgIconComponent } from '../../common-ui/svg-icon/svg-icon.component';
-import { ProfileService } from '../../data/services/profile.service';
+import { SvgIconComponent } from '../../../../../../libs/common-ui/src/lib/components/svg-icon/svg-icon.component';
+import { ProfileService } from '../../../../../../libs/profile/src/lib/data/services/profile.service';
 import { firstValueFrom } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';
