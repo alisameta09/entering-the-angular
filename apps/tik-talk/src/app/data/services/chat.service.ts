@@ -1,10 +1,10 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { chatUrl, messageUrl } from '../../../const';
+import { chatUrl, messageUrl } from '../../../../../../libs/shared/src/lib/shared/data/constants/const';
 import { Chat, LastMessageRes, Message } from '../interfaces/chats.interface';
 import { map } from 'rxjs';
-import { ProfileService } from './profile.service';
-import { DateTransformPipe } from '../../helpers/pipes/date-transform.pipe';
+import {DateTransformPipe} from '@tt/common-ui';
+import {ProfileService} from '@tt/profile';
 
 @Injectable({
   providedIn: 'root',

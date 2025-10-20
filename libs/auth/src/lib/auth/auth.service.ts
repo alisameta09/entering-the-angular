@@ -4,7 +4,7 @@ import { TokenResponse } from './auth.interface';
 import { catchError, tap, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { authUrl } from '../../../../../apps/tik-talk/src/const';
+import {authUrl} from '@tt/shared';
 
 @Injectable({
   providedIn: 'root',

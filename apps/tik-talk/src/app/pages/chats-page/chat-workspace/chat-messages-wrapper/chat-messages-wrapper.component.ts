@@ -12,11 +12,11 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
-import { PostInputComponent } from '../../../profile-page/post-input/post-input.component';
 import { ChatService } from '../../../../data/services/chat.service';
 import { Chat } from '../../../../data/interfaces/chats.interface';
 import { debounceTime, firstValueFrom, fromEvent, switchMap, timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {PostInputComponent} from '../../../../../../../../libs/posts/src/lib/ui';
 
 @Component({
   selector: 'app-chat-messages-wrapper',
