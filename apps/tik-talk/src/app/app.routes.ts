@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { SearchPageComponent } from '../../../../libs/profile/src/lib/feature-profile-list/search-page/search-page.component';
 import { LayoutComponent } from './common-ui/layout/layout.component';
 import { FormsExperimentComponent } from './experimental/forms-experiment/forms-experiment.component';
 import {canActivateAuth, LoginPageComponent} from '@tt/auth';
