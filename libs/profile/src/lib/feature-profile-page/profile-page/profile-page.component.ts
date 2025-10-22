@@ -1,13 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
-import { ProfileHeaderComponent } from '../../common-ui/profile-header/profile-header.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { firstValueFrom, switchMap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
-import { ChatService } from '../../data/services/chat.service';
+import { ProfileHeaderComponent } from '../../../../../../apps/tik-talk/src/app/common-ui/profile-header/profile-header.component';
+import { ChatService } from '@tt/chats';
 import {PostFeedComponent} from '@tt/posts';
 import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
-import {ProfileService} from '@tt/profile';
+import {ProfileService} from '../../data';
 
 @Component({
   selector: 'app-profile-page',

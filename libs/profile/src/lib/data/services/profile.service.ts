@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs';
-import { baseApiUrl } from '../../../../../shared/src/lib/shared/data/constants/const';
+import { baseApiUrl } from '@tt/shared';
 import {Pageble} from '@tt/shared';
 import {Profile} from '../interfaces';
 
