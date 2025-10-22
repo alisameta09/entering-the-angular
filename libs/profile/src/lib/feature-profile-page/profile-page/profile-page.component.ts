@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { firstValueFrom, switchMap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
-import { ProfileHeaderComponent } from '../../../../../../apps/tik-talk/src/app/common-ui/profile-header/profile-header.component';
+import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { ChatService } from '@tt/chats';
 import {PostFeedComponent} from '@tt/posts';
 import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
