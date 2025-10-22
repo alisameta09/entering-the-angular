@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ChatHeaderComponent } from './chat-header/chat-header.component';
 import { ChatMessagesWrapperComponent } from './chat-messages-wrapper/chat-messages-wrapper.component';
 import { ActivatedRoute } from '@angular/router';
-import { ChatService } from '../../../data/services/chat.service';
+import { ChatService } from '../../../../../../../libs/chats/src/lib/data/services/chat.service';
 import { switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
