@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ChatBtnsComponent } from '../chat-btns/chat-btns.component';
-import { SvgIconComponent } from '../../../../../../../libs/common-ui/src/lib/components/svg-icon/svg-icon.component';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ChatService } from '../../../../../../../libs/chats/src/lib/data/services/chat.service';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { map, startWith, switchMap } from 'rxjs';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ChatBtnsComponent } from '../chat-btns/chat-btns.component';
+import { SvgIconComponent } from '@tt/common-ui';
+import { ChatService } from '../../data';
 
 @Component({
   selector: 'app-chat-list',
