@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
-import {ProfileService} from '@tt/profile';
+import {ProfileService} from '../../../../../../libs/profile/src/lib/data/services/profile.service';
 
 @Component({
   selector: 'app-sidebar',

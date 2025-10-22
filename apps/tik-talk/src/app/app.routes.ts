@@ -1,10 +1,9 @@
 import { Routes } from '@angular/router';
-import { SearchPageComponent } from './pages/search-page/search-page.component';
-import { LayoutComponent } from './common-ui/layout/layout.component';
 import { FormsExperimentComponent } from './experimental/forms-experiment/forms-experiment.component';
 import {canActivateAuth, LoginPageComponent} from '@tt/auth';
-import { ProfilePageComponent, SettingsPageComponent } from '@tt/profile';
+import {ProfilePageComponent, SearchPageComponent, SettingsPageComponent} from '@tt/profile';
 import {chatsRoutes} from '@tt/chats';
+import {LayoutComponent} from '@tt/layout';
 
 export const routes: Routes = [
   {
