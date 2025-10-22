@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DndDirective } from '../../../../../../apps/tik-talk/src/app/common-ui/directives/dnd.directive';
-import {SvgIconComponent} from '@tt/common-ui';
+import {DndDirective, SvgIconComponent} from '@tt/common-ui';
 
 @Component({
   selector: 'app-avatar-upload',
