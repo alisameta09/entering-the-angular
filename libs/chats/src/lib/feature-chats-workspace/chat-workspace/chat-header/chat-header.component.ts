@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 import {AvatarCircleComponent, SvgIconComponent} from '@tt/common-ui';
-import {Profile} from '../../../../../../profile/src/lib/data/interfaces';
+import {Profile} from '@tt/interfaces/profile';
+
 
 @Component({
   selector: 'app-chat-header',

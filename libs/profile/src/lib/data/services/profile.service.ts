@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs';
 import { baseApiUrl } from '@tt/shared';
 import {Pageble} from '@tt/shared';
-import {Profile} from '../interfaces';
+import {Profile} from '@tt/interfaces/profile';
 
 @Injectable({
   providedIn: 'root',
