@@ -1,8 +1,7 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs';
-import { baseApiUrl } from '@tt/shared';
-import {Pageble} from '@tt/shared';
+import {inject, Injectable, signal} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {map, tap} from 'rxjs';
+import {baseApiUrl, Pageble, GlobalStoreService} from '@tt/shared';
 import {Profile} from '@tt/interfaces/profile';
 
 @Injectable({
@@ -10,12 +9,17 @@ import {Profile} from '@tt/interfaces/profile';
 })
 export class ProfileService {
   http = inject(HttpClient);
+  #globalStoreService = inject(GlobalStoreService);
 
   me = signal<Profile | null>(null);
   filteredProfiles = signal<Profile[]>([]);
 
   getMe() {
-    return this.http.get<Profile>(`${baseApiUrl}account/me`).pipe(tap((res) => this.me.set(res)));
+    return this.http.get<Profile>(`${baseApiUrl}account/me`)
+      .pipe(tap((res) => {
+        this.me.set(res);
+        this.#globalStoreService.me.set(res);
+      }));
   }
 
   getAccount(id: string) {
@@ -41,7 +45,7 @@ export class ProfileService {
 
   filterProfiles(params: Record<string, any>) {
     return this.http
-      .get<Pageble<Profile>>(`${baseApiUrl}account/accounts`, { params })
+      .get<Pageble<Profile>>(`${baseApiUrl}account/accounts`, {params})
       .pipe(tap((res) => this.filteredProfiles.set(res.items)));
   }
 }
