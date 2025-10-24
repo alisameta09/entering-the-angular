@@ -2,10 +2,10 @@ import { Component, effect, inject, ViewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { RouterLink } from '@angular/router';
-import { ProfileService } from '../../data';
 import {SvgIconComponent} from '@tt/common-ui';
 import {ProfileHeaderComponent} from '../../ui/profile-header/profile-header.component';
 import {AvatarUploadComponent} from '../../ui/avatar-upload/avatar-upload.component';
+import {ProfileService} from '@tt/data-access/profile';
 
 @Component({
   selector: 'app-settings-page',

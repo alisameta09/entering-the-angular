@@ -3,9 +3,9 @@ import { AsyncPipe } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { map, startWith, switchMap } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ChatBtnsComponent } from '../chat-btns/chat-btns.component';
+import { ChatBtnsComponent } from '../chats-btns/chat-btns.component';
 import { SvgIconComponent } from '@tt/common-ui';
-import { ChatService } from '../../data';
+import {ChatService} from '@tt/data-access/chats';
 
 @Component({
   selector: 'app-chat-list',

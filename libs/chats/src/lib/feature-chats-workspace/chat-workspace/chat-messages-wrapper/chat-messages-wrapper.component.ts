@@ -14,10 +14,8 @@ import {
 import { debounceTime, firstValueFrom, fromEvent, switchMap, timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
-import { ChatService } from '../../../data';
-import { Chat } from '../../../data/interfaces/chats.interface';
 import {PostInputComponent} from '@tt/posts';
-
+import {Chat, ChatService} from '@tt/data-access/chats';
 
 @Component({
   selector: 'app-chat-messages-wrapper',
