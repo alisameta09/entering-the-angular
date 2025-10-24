@@ -1,7 +1,5 @@
-import { ChatsPageComponent } from './chats-page/chats-page.component';
-import { chatsRoutes } from './chats-page/chats-routes';
+import { chatsRoutes } from './chat-page/chats-routes';
 
 export {
-  ChatsPageComponent,
   chatsRoutes
 }

@@ -1,7 +1,7 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
-import { Chat, LastMessageRes, Message } from '../interfaces/chats.interface';
+import {inject, Injectable, signal} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs';
+import {Chat, LastMessageRes, Message} from '../interfaces/chats.interface';
 import {chatUrl, messageUrl} from '@tt/shared';
 import {ProfileService} from '@tt/profile';
 import {DateTransformPipe} from '@tt/common-ui';
