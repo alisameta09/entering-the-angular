@@ -1,5 +1,5 @@
 import {Injectable, signal} from '@angular/core';
-import {Profile} from '@tt/interfaces/profile';
+import {Profile} from '../../../../../data-access/src/lib/profile';
 
 @Injectable({
   providedIn: 'root'

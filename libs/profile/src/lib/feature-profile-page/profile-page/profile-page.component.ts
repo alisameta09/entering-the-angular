@@ -6,7 +6,7 @@ import { AsyncPipe } from '@angular/common';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import {PostFeedComponent} from '@tt/posts';
 import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
-import {ProfileService} from '../../data';
+import {ProfileService} from '@tt/data-access/profile';
 
 @Component({
   selector: 'app-profile-page',

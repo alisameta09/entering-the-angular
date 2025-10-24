@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ProfileService } from '../../data/services/profile.service';
 import { debounceTime, startWith, switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {SvgIconComponent} from '@tt/common-ui';
+import {ProfileService} from '@tt/data-access/profile';
 
 @Component({
   selector: 'app-profile-filters',

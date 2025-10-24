@@ -1,7 +1,7 @@
 {
-  "name": "interfaces",
+  "name": "data-access",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/interfaces/src",
+  "sourceRoot": "libs/data-access/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": [],
