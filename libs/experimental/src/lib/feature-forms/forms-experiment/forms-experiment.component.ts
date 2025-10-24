@@ -9,16 +9,14 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { DestinationName, ReceiverType } from '../const';
-import { MaskitoDirective } from '@maskito/angular';
-import { dateMaskOptions, phoneMaskOptions } from '../masks';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { debounceTime, fromEvent } from 'rxjs';
-import { MockService } from '../mock.service';
-import { Feature, Tour } from '../mock.interfaces';
 import { KeyValuePipe } from '@angular/common';
-import { NameValidator } from '../name.validator';
+import { MaskitoDirective } from '@maskito/angular';
+import { DestinationName, ReceiverType } from '../../shared/const';
+import { dateMaskOptions, phoneMaskOptions, NameValidator } from '../../util';
+import {Feature, MockService, Tour} from '../../data';
 
 // function getContactForm() {
 //   return new FormGroup({

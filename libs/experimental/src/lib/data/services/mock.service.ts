@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Tour, Feature } from './mock.interfaces';
 import { Observable, of } from 'rxjs';
-import { DestinationName } from './const';
+import { DestinationName } from '../../shared/const';
+import {Feature, Tour} from '../interfaces/mock.interfaces';
 
 @Injectable({
   providedIn: 'root',

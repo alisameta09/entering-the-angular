@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { FormsExperimentComponent } from './experimental/forms-experiment/forms-experiment.component';
 import {canActivateAuth, LoginPageComponent} from '@tt/auth';
 import {ProfilePageComponent, SearchPageComponent, SettingsPageComponent} from '@tt/profile';
 import {chatsRoutes} from '@tt/chats';
 import {LayoutComponent} from '@tt/layout';
+import {FormsExperimentComponent} from '@tt/experimental';
 
 export const routes: Routes = [
   {
