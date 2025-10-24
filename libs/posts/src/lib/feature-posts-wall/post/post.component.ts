@@ -3,7 +3,7 @@ import { firstValueFrom } from 'rxjs';
 import {Post, PostComment, PostService} from '../../data';
 import {CommentComponent, PostInputComponent} from '../../ui';
 import {AvatarCircleComponent, DateTransformPipe, SvgIconComponent} from '@tt/common-ui';
-import {GlobalStoreService} from '@tt/shared';
+import {GlobalStoreService} from '@tt/data-access/profile';
 
 @Component({
   selector: 'app-post',

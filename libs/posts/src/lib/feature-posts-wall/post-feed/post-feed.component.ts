@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {PostService} from '../../data';
 import {PostInputComponent} from '../../ui';
 import {PostComponent} from '../post';
-import {GlobalStoreService} from '@tt/shared';
+import {GlobalStoreService} from '@tt/data-access/profile';
 
 @Component({
   selector: 'app-post-feed',
