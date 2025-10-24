@@ -3,7 +3,7 @@ import { firstValueFrom } from 'rxjs';
 import {Post, PostComment, PostService} from '../../data';
 import {CommentComponent, PostInputComponent} from '../../ui';
 import {AvatarCircleComponent, DateTransformPipe, SvgIconComponent} from '@tt/common-ui';
-import { ProfileService } from '@tt/profile';
+import {GlobalStoreService} from '@tt/shared';
 
 @Component({
   selector: 'app-post',
@@ -23,7 +23,7 @@ export class PostComponent implements OnInit {
   comments = signal<PostComment[]>([]);
 
   postService = inject(PostService);
-  profile = inject(ProfileService).me;
+  profile = inject(GlobalStoreService).me;
 
   ngOnInit() {
     this.comments.set(this.post()!.comments);

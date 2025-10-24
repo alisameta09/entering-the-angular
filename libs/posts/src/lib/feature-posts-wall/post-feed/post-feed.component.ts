@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, DestroyRef, ElementRef, inject, Renderer2 } from '@angular/core';
 import { debounceTime, firstValueFrom, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ProfileService } from '@tt/profile';
 import {PostService} from '../../data';
 import {PostInputComponent} from '../../ui';
 import {PostComponent} from '../post';
+import {GlobalStoreService} from '@tt/shared';
 
 @Component({
   selector: 'app-post-feed',
@@ -17,7 +17,7 @@ export class PostFeedComponent implements AfterViewInit {
 
   r2 = inject(Renderer2);
   postService = inject(PostService);
-  profile = inject(ProfileService).me;
+  profile = inject(GlobalStoreService).me;
   hostElement = inject(ElementRef);
   destroyRef = inject(DestroyRef);
 
