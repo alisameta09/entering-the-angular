@@ -1,8 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CommentCreateDto, Post, PostComment, PostCreateDto } from '../interfaces/post.interface';
+import { CommentCreateDto, Post, PostComment, PostCreateDto } from '@tt/data-access/posts/interfaces/post.interface';
 import { map, switchMap, tap } from 'rxjs';
-import { baseApiUrl } from '../../../../../shared/src/lib/data/constants/const';
+import {baseApiUrl} from '@tt/shared';
 
 @Injectable({
   providedIn: 'root',
