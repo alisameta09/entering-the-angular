@@ -5,7 +5,7 @@ import { map, startWith, switchMap } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ChatBtnsComponent } from '../chats-btns/chat-btns.component';
 import { SvgIconComponent } from '@tt/common-ui';
-import { ChatService } from '../../data/services/chat.service';
+import {ChatService} from '@tt/data-access/chats';
 
 @Component({
   selector: 'app-chat-list',

@@ -4,7 +4,7 @@ import {AsyncPipe} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ChatHeaderComponent} from './chat-header/chat-header.component';
 import {ChatMessagesWrapperComponent} from './chat-messages-wrapper/chat-messages-wrapper.component';
-import {ChatService} from '../../data/services/chat.service';
+import {ChatService} from '@tt/data-access/chats';
 
 @Component({
   selector: 'app-chat-workspace',
@@ -24,7 +24,6 @@ export class ChatWorkspaceComponent {
           return this.route.queryParams.pipe(
             filter(({userId}) => userId),
             switchMap(({userId}) => {
-              console.log('queryParams', userId);
               return this.chatService.createChat(userId).pipe(
                 switchMap(chat => {
                   this.router.navigate(['chats', chat.id])

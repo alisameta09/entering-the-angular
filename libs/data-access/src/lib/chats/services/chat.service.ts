@@ -1,10 +1,10 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs';
-import {Chat, LastMessageRes, Message} from '../interfaces/chats.interface';
 import {chatUrl, messageUrl} from '@tt/shared';
 import {GlobalStoreService} from '@tt/data-access/profile';
 import {DateTransformPipe} from '@tt/common-ui';
+import { Chat, Message, LastMessageRes } from '../index';
 
 @Injectable({
   providedIn: 'root',
