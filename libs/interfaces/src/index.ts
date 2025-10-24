@@ -1,1 +1,1 @@
-export * from './lib/profile';
+export * from '@tt/interfaces/profile';
