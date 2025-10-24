@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs';
 import {Chat, LastMessageRes, Message} from '../interfaces/chats.interface';
 import {chatUrl, messageUrl} from '@tt/shared';
-import {ProfileService} from '@tt/profile';
+import {GlobalStoreService} from '@tt/shared';
 import {DateTransformPipe} from '@tt/common-ui';
 
 @Injectable({
@@ -11,14 +11,9 @@ import {DateTransformPipe} from '@tt/common-ui';
 })
 export class ChatService {
   http = inject(HttpClient);
-  me = inject(ProfileService).me;
+  me = inject(GlobalStoreService).me;
 
-  groupedChatMessages = signal<
-    {
-      label: string;
-      messages: Message[];
-    }[]
-  >([]);
+  groupedChatMessages = signal<{ label: string; messages: Message[] }[]>([]);
 
   createChat(userId: number) {
     return this.http.post<Chat>(`${chatUrl}${userId}`, {});
@@ -73,11 +68,7 @@ export class ChatService {
     return this.http.post<Message>(
       `${messageUrl}send/${chatId}`,
       {},
-      {
-        params: {
-          message,
-        },
-      }
+      {params: {message}}
     );
   }
 }
