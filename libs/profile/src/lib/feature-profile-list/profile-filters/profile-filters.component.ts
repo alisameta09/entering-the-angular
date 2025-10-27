@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, startWith, switchMap } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {Component, inject} from '@angular/core';
+import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {debounceTime, startWith} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {SvgIconComponent} from '@tt/common-ui';
-import {ProfileService} from '@tt/data-access/profile';
+import {profileActions} from '@tt/data-access/profile';
 
 @Component({
   selector: 'app-profile-filters',
@@ -13,7 +14,7 @@ import {ProfileService} from '@tt/data-access/profile';
 })
 export class ProfileFiltersComponent {
   fb = new FormBuilder();
-  profileService = inject(ProfileService);
+  store = inject(Store);
 
   searchForm = this.fb.group({
     firstName: [''],
@@ -26,11 +27,10 @@ export class ProfileFiltersComponent {
       .pipe(
         startWith({}),
         debounceTime(300),
-        switchMap((formValue) => {
-          return this.profileService.filterProfiles(formValue);
-        }),
         takeUntilDestroyed()
       )
-      .subscribe();
+      .subscribe(formValue => {
+        this.store.dispatch(profileActions.filterEvents({filters: formValue}))
+      });
   }
 }
