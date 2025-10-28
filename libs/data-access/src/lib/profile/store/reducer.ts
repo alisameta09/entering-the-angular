@@ -2,12 +2,12 @@ import {createFeature, createReducer, on} from '@ngrx/store';
 import {Profile} from '../index';
 import {profileActions} from './actions';
 
-export interface ProfileState {
+interface ProfileState {
   profiles: Profile[],
   profileFilters: Record<string, any>
 }
 
-export const initialState: ProfileState = {
+const initialState: ProfileState = {
   profiles: [],
   profileFilters: {}
 }
