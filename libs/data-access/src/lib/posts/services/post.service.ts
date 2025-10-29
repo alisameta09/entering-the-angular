@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Post, PostComment} from '../index';
-import {map, switchMap} from 'rxjs';
+import {map} from 'rxjs';
 import {baseApiUrl} from '@tt/shared';
 import {CommentCreateDto, PostCreateDto} from '../interfaces/post.interface';
 
@@ -13,9 +13,6 @@ export class PostService {
 
   createPost(payload: PostCreateDto) {
     return this.#http.post<Post>(`${baseApiUrl}post/`, payload)
-      .pipe(
-        switchMap(() => this.fetchPosts())
-      )
   }
 
   fetchPosts() {

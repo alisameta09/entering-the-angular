@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, DestroyRef, ElementRef, inject, OnInit, Renderer2} from '@angular/core';
-import {debounceTime, firstValueFrom, fromEvent} from 'rxjs';
+import {debounceTime, fromEvent} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {postActions, PostService, selectFetchedPosts} from '@tt/data-access/posts';
+import {postActions, selectFetchedPosts} from '@tt/data-access/posts';
 import {PostInputComponent} from '../../ui';
 import {PostComponent} from '../post';
 import {GlobalStoreService} from '@tt/data-access/profile';
@@ -17,7 +17,6 @@ export class PostFeedComponent implements OnInit, AfterViewInit {
   private readonly PADDING = 24 * 2;
 
   r2 = inject(Renderer2);
-  postService = inject(PostService);
   store = inject(Store);
   profile = inject(GlobalStoreService).me;
   hostElement = inject(ElementRef);
@@ -26,7 +25,7 @@ export class PostFeedComponent implements OnInit, AfterViewInit {
   feed = this.store.selectSignal(selectFetchedPosts);
 
   ngOnInit() {
-    this.store.dispatch(postActions.fetchEvents());
+    this.store.dispatch(postActions.fetchPosts());
   }
 
   ngAfterViewInit() {
@@ -44,18 +43,16 @@ export class PostFeedComponent implements OnInit, AfterViewInit {
     this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`);
   }
 
-  async onCreatePost(postText: string) {
+  onCreatePost(postText: string) {
     if (!postText.trim()) return;
 
-    await firstValueFrom(
-      this.postService.createPost({
+    this.store.dispatch(postActions.createPost({
+      payload: {
         title: 'Клевый пост',
         content: postText.trim(),
         authorId: this.profile()!.id,
         communityId: 0,
-      })
-    );
-
-    this.store.dispatch(postActions.fetchEvents())
+      }
+    }))
   }
 }
