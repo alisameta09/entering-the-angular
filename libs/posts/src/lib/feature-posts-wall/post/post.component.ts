@@ -1,9 +1,9 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
-import {Post, PostComment, PostService} from '@tt/data-access/posts';
+import {Component, computed, inject, input, OnInit, Signal} from '@angular/core';
+import {Post, postActions, PostComment, selectCreatedComments} from '@tt/data-access/posts';
 import {CommentComponent, PostInputComponent} from '../../ui';
 import {AvatarCircleComponent, DateTransformPipe, SvgIconComponent} from '@tt/common-ui';
 import {GlobalStoreService} from '@tt/data-access/profile';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-post',
@@ -19,31 +19,34 @@ import {GlobalStoreService} from '@tt/data-access/profile';
 })
 export class PostComponent implements OnInit {
   post = input<Post>();
+  comments!: Signal<PostComment[]>
 
-  comments = signal<PostComment[]>([]);
-
-  postService = inject(PostService);
   profile = inject(GlobalStoreService).me;
+  store = inject(Store);
+
+  comments2 = computed(() => {
+
+    if (this.comments()?.length) {
+      return this.comments()
+    }
+
+    return this.post()?.comments
+  })
+
 
   ngOnInit() {
-    this.comments.set(this.post()!.comments);
+    this.comments = this.store.selectSignal(selectCreatedComments(this.post()!.id));
   }
 
-  async onCreateComment(commentText: string) {
+  onCreateComment(commentText: string) {
     if (!commentText.trim()) return;
 
-    await firstValueFrom(
-      this.postService.createComment({
+    this.store.dispatch(postActions.createComment({
+      payload: {
         text: commentText,
         authorId: this.profile()!.id,
         postId: this.post()!.id,
-      })
-    );
-
-    const createdComments = await firstValueFrom(
-      this.postService.getCommentsByPostId(this.post()!.id)
-    );
-
-    this.comments.set(createdComments);
+      }
+    }))
   }
 }
