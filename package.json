@@ -33,6 +33,8 @@
     "@maskito/core": "^4.0.0",
     "@maskito/kit": "^4.0.0",
     "@maskito/phone": "^4.0.0",
+    "@ngrx/effects": "^20.1.0",
+    "@ngrx/store": "^20.1.0",
     "@types/luxon": "^3.7.1",
     "libphonenumber-js": "^1.12.24",
     "luxon": "^3.7.2",

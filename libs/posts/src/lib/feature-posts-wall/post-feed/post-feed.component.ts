@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, DestroyRef, ElementRef, inject, Renderer2 } from '@angular/core';
-import { debounceTime, firstValueFrom, fromEvent } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {PostService} from '@tt/data-access/posts';
+import {AfterViewInit, Component, DestroyRef, ElementRef, inject, OnInit, Renderer2} from '@angular/core';
+import {debounceTime, fromEvent} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {postActions, selectFetchedPosts} from '@tt/data-access/posts';
 import {PostInputComponent} from '../../ui';
 import {PostComponent} from '../post';
 import {GlobalStoreService} from '@tt/data-access/profile';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-post-feed',
@@ -12,19 +13,19 @@ import {GlobalStoreService} from '@tt/data-access/profile';
   templateUrl: './post-feed.component.html',
   styleUrl: './post-feed.component.scss',
 })
-export class PostFeedComponent implements AfterViewInit {
+export class PostFeedComponent implements OnInit, AfterViewInit {
   private readonly PADDING = 24 * 2;
 
   r2 = inject(Renderer2);
-  postService = inject(PostService);
+  store = inject(Store);
   profile = inject(GlobalStoreService).me;
   hostElement = inject(ElementRef);
   destroyRef = inject(DestroyRef);
 
-  feed = this.postService.posts;
+  feed = this.store.selectSignal(selectFetchedPosts);
 
-  constructor() {
-    firstValueFrom(this.postService.fetchPosts());
+  ngOnInit() {
+    this.store.dispatch(postActions.fetchPosts());
   }
 
   ngAfterViewInit() {
@@ -36,22 +37,22 @@ export class PostFeedComponent implements AfterViewInit {
   }
 
   resizeFeed() {
-    const { top } = this.hostElement.nativeElement.getBoundingClientRect();
+    const {top} = this.hostElement.nativeElement.getBoundingClientRect();
     const height = window.innerHeight - top - this.PADDING;
 
     this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`);
   }
 
-  async onCreatePost(postText: string) {
+  onCreatePost(postText: string) {
     if (!postText.trim()) return;
 
-    await firstValueFrom(
-      this.postService.createPost({
+    this.store.dispatch(postActions.createPost({
+      payload: {
         title: 'Клевый пост',
         content: postText.trim(),
         authorId: this.profile()!.id,
         communityId: 0,
-      })
-    );
+      }
+    }))
   }
 }

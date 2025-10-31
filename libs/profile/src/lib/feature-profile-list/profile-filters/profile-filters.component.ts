@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, startWith, switchMap } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {debounceTime, startWith} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {SvgIconComponent} from '@tt/common-ui';
-import {ProfileService} from '@tt/data-access/profile';
+import {profileActions, selectSaveFilteredProfiles} from '@tt/data-access/profile';
 
 @Component({
   selector: 'app-profile-filters',
@@ -11,9 +12,10 @@ import {ProfileService} from '@tt/data-access/profile';
   templateUrl: './profile-filters.component.html',
   styleUrl: './profile-filters.component.scss',
 })
-export class ProfileFiltersComponent {
+export class ProfileFiltersComponent implements OnInit {
   fb = new FormBuilder();
-  profileService = inject(ProfileService);
+  store = inject(Store);
+  destroyRef = inject(DestroyRef);
 
   searchForm = this.fb.group({
     firstName: [''],
@@ -21,16 +23,25 @@ export class ProfileFiltersComponent {
     stack: [''],
   });
 
-  constructor() {
-    this.searchForm.valueChanges
-      .pipe(
-        startWith({}),
-        debounceTime(300),
-        switchMap((formValue) => {
-          return this.profileService.filterProfiles(formValue);
-        }),
-        takeUntilDestroyed()
-      )
-      .subscribe();
+  ngOnInit(): void {
+    this.searchForm.valueChanges.pipe(
+      startWith(this.searchForm.getRawValue()),
+      debounceTime(300),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((formValue) => {
+      this.store.dispatch(profileActions.saveFilter({filters: formValue}));
+      this.store.dispatch(profileActions.filterEvents({filters: formValue}));
+    });
   }
+
+  constructor() {
+    this.store.select(selectSaveFilteredProfiles)
+      .pipe(takeUntilDestroyed())
+      .subscribe(filters => {
+        if (filters) {
+          this.searchForm.patchValue(filters, {emitEvent: false});
+        }
+      });
+  }
+
 }

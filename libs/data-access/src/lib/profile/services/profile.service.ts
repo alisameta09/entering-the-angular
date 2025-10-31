@@ -13,7 +13,6 @@ export class ProfileService {
   #globalStoreService = inject(GlobalStoreService);
 
   me = signal<Profile | null>(null);
-  filteredProfiles = signal<Profile[]>([]);
 
   getMe() {
     return this.http.get<Profile>(`${baseApiUrl}account/me`)
@@ -45,8 +44,6 @@ export class ProfileService {
   }
 
   filterProfiles(params: Record<string, any>) {
-    return this.http
-      .get<Pageble<Profile>>(`${baseApiUrl}account/accounts`, {params})
-      .pipe(tap((res) => this.filteredProfiles.set(res.items)));
+    return this.http.get<Pageble<Profile>>(`${baseApiUrl}account/accounts`, {params})
   }
 }
