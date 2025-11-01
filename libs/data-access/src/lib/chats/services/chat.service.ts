@@ -2,9 +2,11 @@ import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs';
 import {chatUrl, messageUrl} from '@tt/shared';
-import {GlobalStoreService} from '@tt/data-access/profile';
 import {DateTransformPipe} from '@tt/common-ui';
-import { Chat, Message, LastMessageRes } from '../index';
+import {Chat, Message, LastMessageRes} from '../index';
+import {ChatWsNativeService} from './chat-ws-native.service';
+import {AuthService, GlobalStoreService} from 'libs/data-access/src';
+import {ChatWSService} from '../interfaces/chat-ws-service.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +14,23 @@ import { Chat, Message, LastMessageRes } from '../index';
 export class ChatService {
   http = inject(HttpClient);
   me = inject(GlobalStoreService).me;
+  #authService = inject(AuthService);
+
+  wsAdapter: ChatWSService = new ChatWsNativeService();
 
   groupedChatMessages = signal<{ label: string; messages: Message[] }[]>([]);
+
+  connectWs() {
+    this.wsAdapter.connect({
+      url: `${chatUrl}ws`,
+      token: this.#authService.token ?? '',
+      handleMessage: this.handleWSMessage
+    });
+  }
+
+  handleWSMessage(message: unknown) {
+    console.log(message);
+  }
 
   createChat(userId: number) {
     return this.http.post<Chat>(`${chatUrl}${userId}`, {});
