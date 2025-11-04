@@ -5,13 +5,12 @@ import {
   ElementRef,
   inject,
   input,
-  OnInit,
   QueryList,
   Renderer2,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import {debounceTime, firstValueFrom, fromEvent, switchMap, timer} from 'rxjs';
+import {debounceTime, firstValueFrom, fromEvent} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ChatMessageComponent} from './chat-message/chat-message.component';
 import {PostInputComponent} from '@tt/posts';
@@ -37,15 +36,6 @@ export class ChatMessagesWrapperComponent implements AfterViewInit {
 
   @ViewChild('messagesContainer') messagesContainer?: ElementRef<HTMLElement>;
   @ViewChildren('lastMessage') lastMessage?: QueryList<ElementRef<HTMLElement>>;
-
-  // ngOnInit() {
-  //   timer(0, 3000)
-  //     .pipe(
-  //       takeUntilDestroyed(this.destroyRef),
-  //       switchMap(() => this.chatService.getChatById(this.chat().id))
-  //     )
-  //     .subscribe();
-  // }
 
   ngAfterViewInit() {
     this.resizeChatPage();
@@ -85,7 +75,6 @@ export class ChatMessagesWrapperComponent implements AfterViewInit {
       this.chat().id
     )
 
-    // await firstValueFrom(this.chatService.sendMessage(this.chat().id, messageText));
     await firstValueFrom(this.chatService.getChatById(this.chat().id));
 
     setTimeout(() => this.scrollToLastMessage());

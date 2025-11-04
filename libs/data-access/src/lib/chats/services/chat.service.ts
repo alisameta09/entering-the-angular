@@ -7,7 +7,7 @@ import {Chat, Message, LastMessageRes} from '../index';
 import {ChatWsNativeService} from './chat-ws-native.service';
 import {AuthService, GlobalStoreService} from 'libs/data-access/src';
 import {ChatWSService} from '../interfaces/chat-ws-service.interface';
-import {DateTime} from 'luxon';
+import { ChatWSMessage } from '../interfaces/chat-ws-message.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -29,9 +29,8 @@ export class ChatService {
     });
   }
 
-  handleWsMessage = (message: any) => {
-    console.log(message);
-    console.log("Received data:", message.data);
+  handleWsMessage = (message: ChatWSMessage) => {
+    if (!('action' in message)) return;
 
     if (message.action === 'message') {
       let newMessage = {
