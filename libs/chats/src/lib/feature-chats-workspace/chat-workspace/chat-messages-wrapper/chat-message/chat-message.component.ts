@@ -1,11 +1,10 @@
 import { Component, HostBinding, input } from '@angular/core';
-import {AvatarCircleComponent} from '@tt/common-ui';
+import {AvatarCircleComponent, DateTransformPipe} from '@tt/common-ui';
 import {Message} from '@tt/data-access/chats';
-import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-chat-message',
-  imports: [AvatarCircleComponent, DatePipe],
+  imports: [AvatarCircleComponent, DateTransformPipe],
   templateUrl: './chat-message.component.html',
   styleUrl: './chat-message.component.scss',
 })
