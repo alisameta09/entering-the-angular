@@ -1,14 +1,14 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {chatUrl, messageUrl} from '@tt/shared';
 import {DateTransformPipe} from '@tt/common-ui';
 import {Chat, Message, LastMessageRes} from '../index';
-import {ChatWsNativeService} from './chat-ws-native.service';
 import {AuthService, GlobalStoreService} from 'libs/data-access/src';
 import {ChatWSService} from '../interfaces/chat-ws-service.interface';
 import { ChatWSMessage } from '../interfaces/chat-ws-message.interface';
 import {isNewMessage, isUnreadMessage} from '../interfaces/type-guards';
+import { ChatWSRxjsService } from './chat-ws-rxjs.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,16 +18,16 @@ export class ChatService {
   me = inject(GlobalStoreService).me;
   #authService = inject(AuthService);
 
-  wsAdapter: ChatWSService = new ChatWsNativeService();
+  wsAdapter: ChatWSService = new ChatWSRxjsService();
 
   groupedChatMessages = signal<{ label: string; messages: Message[] }[]>([]);
 
   connectWs() {
-    this.wsAdapter.connect({
+    return this.wsAdapter.connect({
       url: `${chatUrl}ws`,
       token: this.#authService.token ?? '',
       handleMessage: this.handleWsMessage
-    });
+    }) as Observable<ChatWSMessage>;
   }
 
   handleWsMessage = (message: ChatWSMessage) => {
