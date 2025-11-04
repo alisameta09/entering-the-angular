@@ -8,6 +8,7 @@ import {ChatWsNativeService} from './chat-ws-native.service';
 import {AuthService, GlobalStoreService} from 'libs/data-access/src';
 import {ChatWSService} from '../interfaces/chat-ws-service.interface';
 import { ChatWSMessage } from '../interfaces/chat-ws-message.interface';
+import {isNewMessage, isUnreadMessage} from '../interfaces/type-guards';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +33,11 @@ export class ChatService {
   handleWsMessage = (message: ChatWSMessage) => {
     if (!('action' in message)) return;
 
-    if (message.action === 'message') {
+    if (isUnreadMessage(message)) {
+      //TODO дз message.data.count
+    }
+
+    if (isNewMessage(message)) {
       let newMessage = {
         id: message.data.id,
         userFromId: message.data.author,
