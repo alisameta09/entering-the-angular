@@ -7,6 +7,7 @@ import {Chat, Message, LastMessageRes} from '../index';
 import {ChatWsNativeService} from './chat-ws-native.service';
 import {AuthService, GlobalStoreService} from 'libs/data-access/src';
 import {ChatWSService} from '../interfaces/chat-ws-service.interface';
+import {DateTime} from 'luxon';
 
 @Injectable({
   providedIn: 'root',
@@ -24,12 +25,39 @@ export class ChatService {
     this.wsAdapter.connect({
       url: `${chatUrl}ws`,
       token: this.#authService.token ?? '',
-      handleMessage: this.handleWSMessage
+      handleMessage: this.handleWsMessage
     });
   }
 
-  handleWSMessage(message: unknown) {
+  handleWsMessage = (message: any) => {
     console.log(message);
+    console.log("Received data:", message.data);
+
+    if (message.action === 'message') {
+      let newMessage = {
+        id: message.data.id,
+        userFromId: message.data.author,
+        personalChatId: message.data.chat_id,
+        text: message.data.message,
+        createdAt: message.data.created_at,
+        isRead: false,
+        isMine: false
+      }
+
+      const currentGroupedChatMessages = this.groupedChatMessages();
+
+      const flatGroupedChatMessages = currentGroupedChatMessages
+        .flatMap(chat => chat.messages);
+
+      const updatedGroupedChatMessages = [
+        ...flatGroupedChatMessages,
+        newMessage
+      ]
+
+      const regroupedChatMessages = this.groupMessagesByDay(updatedGroupedChatMessages);
+      this.groupedChatMessages.set(regroupedChatMessages);
+
+    }
   }
 
   createChat(userId: number) {
