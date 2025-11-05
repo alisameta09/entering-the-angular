@@ -4,11 +4,11 @@ import {map, Observable} from 'rxjs';
 import {chatUrl, messageUrl} from '@tt/shared';
 import {DateTransformPipe} from '@tt/common-ui';
 import {Chat, Message, LastMessageRes} from '../index';
-import {AuthService, GlobalStoreService} from 'libs/data-access/src';
+import {AuthService, GlobalStoreService, Profile} from 'libs/data-access/src';
 import {ChatWSService} from '../interfaces/chat-ws-service.interface';
-import { ChatWSMessage } from '../interfaces/chat-ws-message.interface';
+import {ChatWSMessage} from '../interfaces/chat-ws-message.interface';
 import {isNewMessage, isUnreadMessage} from '../interfaces/type-guards';
-import { ChatWSRxjsService } from './chat-ws-rxjs.service';
+import {ChatWSRxjsService} from './chat-ws-rxjs.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,13 @@ export class ChatService {
 
   wsAdapter: ChatWSService = new ChatWSRxjsService();
 
-  groupedChatMessages = signal<{ label: string; messages: Message[] }[]>([]);
+  activeChats = signal<Record<number, { label: string; messages: Message[] }[]>>({});
+  currentChatId = signal<number | null>(null);
+  chatInfo = signal<Record<number, { companion: Profile }>>({});
+
+  setCurrentChatId(chatId: number) {
+    this.currentChatId.set(chatId);
+  }
 
   connectWs() {
     return this.wsAdapter.connect({
@@ -38,29 +44,39 @@ export class ChatService {
     }
 
     if (isNewMessage(message)) {
+      const chatId = message.data.chat_id;
+      const isMine = message.data.author === this.me()?.id;
+
+      const openedChat = this.currentChatId();
+      const companion = this.chatInfo()[chatId].companion;
+
+      if (!companion) return;
+
       let newMessage = {
         id: message.data.id,
         userFromId: message.data.author,
-        personalChatId: message.data.chat_id,
+        personalChatId: chatId,
         text: message.data.message,
         createdAt: message.data.created_at,
-        isRead: false,
-        isMine: false
+        isRead: chatId === openedChat,
+        isMine,
+        user: isMine ? this.me()! : companion
       }
 
-      const currentGroupedChatMessages = this.groupedChatMessages();
+      this.activeChats.update(chats => {
+        const groups = chats[chatId] ?? [];
+        const flat = groups.flatMap(group => group.messages);
+        const updated = [
+          ...flat,
+          newMessage
+        ];
+        const regrouped = this.groupMessagesByDay(updated);
 
-      const flatGroupedChatMessages = currentGroupedChatMessages
-        .flatMap(chat => chat.messages);
-
-      const updatedGroupedChatMessages = [
-        ...flatGroupedChatMessages,
-        newMessage
-      ]
-
-      const regroupedChatMessages = this.groupMessagesByDay(updatedGroupedChatMessages);
-      this.groupedChatMessages.set(regroupedChatMessages);
-
+        return {
+          ...chats,
+          [chatId]: regrouped
+        }
+      })
     }
   }
 
@@ -71,6 +87,8 @@ export class ChatService {
   getChatById(chatId: number) {
     return this.http.get<Chat>(`${chatUrl}${chatId}`).pipe(
       map((chat) => {
+        const companion = chat.userFirst.id === this.me()!.id ? chat.userSecond : chat.userFirst;
+
         const patchedMessages = chat.messages.map((message) => {
           return {
             ...message,
@@ -80,11 +98,20 @@ export class ChatService {
         });
 
         const groupedMessages = this.groupMessagesByDay(patchedMessages);
-        this.groupedChatMessages.set(groupedMessages);
+
+        this.activeChats.update(chats => ({
+          ...chats,
+          [chatId]: groupedMessages
+        }));
+
+        this.chatInfo.update(info => ({
+          ...info,
+          [chatId]: {companion}
+        }));
 
         return {
           ...chat,
-          companion: chat.userFirst.id === this.me()!.id ? chat.userSecond : chat.userFirst,
+          companion,
           messages: patchedMessages,
         };
       })
@@ -111,13 +138,5 @@ export class ChatService {
 
   getMyChats() {
     return this.http.get<LastMessageRes[]>(`${chatUrl}get_my_chats/`);
-  }
-
-  sendMessage(chatId: number, message: string) {
-    return this.http.post<Message>(
-      `${messageUrl}send/${chatId}`,
-      {},
-      {params: {message}}
-    );
   }
 }
