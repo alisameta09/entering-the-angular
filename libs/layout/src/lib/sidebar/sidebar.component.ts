@@ -1,10 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { SubscriberCardComponent } from './subscriber-card/subscriber-card.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
-import { firstValueFrom } from 'rxjs';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {SubscriberCardComponent} from './subscriber-card/subscriber-card.component';
+import {RouterLink, RouterLinkActive} from '@angular/router';
+import {AsyncPipe} from '@angular/common';
+import {firstValueFrom} from 'rxjs';
 import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
 import {ProfileService} from '@tt/data-access/profile';
+import {ChatService} from '@tt/data-access/chats';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,8 +23,13 @@ import {ProfileService} from '@tt/data-access/profile';
 })
 export class SidebarComponent implements OnInit {
   profileService = inject(ProfileService);
+  chatService = inject(ChatService);
+  destroyRef = inject(DestroyRef);
+
   subscribers$ = this.profileService.getSubscribersShortList();
+
   me = this.profileService.me;
+  unreadMessages = this.chatService.unreadMessagesCount
 
   menuItems = [
     {
@@ -49,5 +56,9 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     firstValueFrom(this.profileService.getMe());
+
+    this.chatService.connectWs()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
   }
 }

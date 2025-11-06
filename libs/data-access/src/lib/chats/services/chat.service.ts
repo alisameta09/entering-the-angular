@@ -1,9 +1,9 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
-import {chatUrl, messageUrl} from '@tt/shared';
+import {chatUrl} from '@tt/shared';
 import {DateTransformPipe} from '@tt/common-ui';
-import {Chat, Message, LastMessageRes} from '../index';
+import {Chat, LastMessageRes, Message} from '../index';
 import {AuthService, GlobalStoreService, Profile} from 'libs/data-access/src';
 import {ChatWSService} from '../interfaces/chat-ws-service.interface';
 import {ChatWSMessage} from '../interfaces/chat-ws-message.interface';
@@ -23,9 +23,28 @@ export class ChatService {
   activeChats = signal<Record<number, { label: string; messages: Message[] }[]>>({});
   currentChatId = signal<number | null>(null);
   chatInfo = signal<Record<number, { companion: Profile }>>({});
+  unreadMessagesCount = signal(0);
 
   setCurrentChatId(chatId: number) {
     this.currentChatId.set(chatId);
+
+    this.activeChats.update(chats => {
+      const groups = chats[chatId] ?? [];
+      const updatedGroup = groups.map(group => ({
+        ...group,
+        messages: group.messages.map(message => ({
+          ...message,
+          isRead: true
+        }))
+      }))
+
+      return {
+        ...chats,
+        [chatId]: updatedGroup
+      }
+    })
+
+    this.unreadMessagesCount.set(this.calculateUnreadMessages());
   }
 
   connectWs() {
@@ -36,11 +55,22 @@ export class ChatService {
     }) as Observable<ChatWSMessage>;
   }
 
+  calculateUnreadMessages() {
+    return Object.values(this.activeChats())
+      .reduce((acc, groups) => {
+        for (const group of groups) {
+          acc += group.messages
+            .reduce((sum, message) => sum + (message.isRead ? 0 : 1), 0)
+        }
+        return acc;
+      }, 0);
+  }
+
   handleWsMessage = (message: ChatWSMessage) => {
     if (!('action' in message)) return;
 
     if (isUnreadMessage(message)) {
-      //TODO дз message.data.count
+      this.unreadMessagesCount.set(this.calculateUnreadMessages());
     }
 
     if (isNewMessage(message)) {

@@ -195,9 +195,11 @@ body {
 }
 
 .count-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 26px;
   height: 18px;
-  padding: 1px 5px;
   background: var(--green-color);
   font-weight: 700;
   font-size: 12px;
