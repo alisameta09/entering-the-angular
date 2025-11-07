@@ -1,4 +1,4 @@
-import { Component, HostBinding, input } from '@angular/core';
+import {Component, HostBinding, input} from '@angular/core';
 import {AvatarCircleComponent, DateTransformPipe} from '@tt/common-ui';
 import {Message} from '@tt/data-access/chats';
 

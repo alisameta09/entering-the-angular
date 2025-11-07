@@ -1,19 +1,19 @@
 import {
+  OnChanges,
   AfterViewInit,
   Component,
   DestroyRef,
   ElementRef,
   inject,
   input,
-  OnInit,
   QueryList,
   Renderer2,
   ViewChild,
-  ViewChildren,
+  ViewChildren, computed,
 } from '@angular/core';
-import { debounceTime, firstValueFrom, fromEvent, switchMap, timer } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ChatMessageComponent } from './chat-message/chat-message.component';
+import {debounceTime, fromEvent} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {ChatMessageComponent} from './chat-message/chat-message.component';
 import {PostInputComponent} from '@tt/posts';
 import {Chat, ChatService} from '@tt/data-access/chats';
 
@@ -23,7 +23,7 @@ import {Chat, ChatService} from '@tt/data-access/chats';
   templateUrl: './chat-messages-wrapper.component.html',
   styleUrl: './chat-messages-wrapper.component.scss',
 })
-export class ChatMessagesWrapperComponent implements OnInit, AfterViewInit {
+export class ChatMessagesWrapperComponent implements OnChanges, AfterViewInit {
   private readonly PADDING = 24;
 
   chatService = inject(ChatService);
@@ -33,18 +33,13 @@ export class ChatMessagesWrapperComponent implements OnInit, AfterViewInit {
 
   chat = input.required<Chat>();
 
-  messages = this.chatService.groupedChatMessages;
+  messages = computed(() => this.chatService.activeChats()[this.chat().id] ?? []);
 
   @ViewChild('messagesContainer') messagesContainer?: ElementRef<HTMLElement>;
   @ViewChildren('lastMessage') lastMessage?: QueryList<ElementRef<HTMLElement>>;
 
-  ngOnInit() {
-    timer(0, 3000)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        switchMap(() => this.chatService.getChatById(this.chat().id))
-      )
-      .subscribe();
+  ngOnChanges() {
+    this.chatService.setCurrentChatId(this.chat().id)
   }
 
   ngAfterViewInit() {
@@ -73,17 +68,13 @@ export class ChatMessagesWrapperComponent implements OnInit, AfterViewInit {
 
   resizeChatPage(): void {
     const el = this.hostElement.nativeElement;
-    const { top } = el.getBoundingClientRect();
+    const {top} = el.getBoundingClientRect();
     const height = window.innerHeight - top - this.PADDING;
 
     this.r2.setStyle(el, 'height', `${height}px`);
   }
 
-  async onSendMessage(messageText: string) {
-    await firstValueFrom(this.chatService.sendMessage(this.chat().id, messageText));
-
-    await firstValueFrom(this.chatService.getChatById(this.chat().id));
-
-    setTimeout(() => this.scrollToLastMessage());
+  onSendMessage(messageText: string) {
+    this.chatService.wsAdapter.sendMessage(messageText, this.chat().id)
   }
 }

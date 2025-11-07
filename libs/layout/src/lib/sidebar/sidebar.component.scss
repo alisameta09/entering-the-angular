@@ -41,6 +41,15 @@
   }
 }
 
+.chats-item {
+  display: grid;
+  grid-template-columns: 16px 1fr 26px;
+}
+
+.count-badge {
+  background: var(--primary-color);
+}
+
 .menu-icon {
   width: 16px;
   height: 16px;

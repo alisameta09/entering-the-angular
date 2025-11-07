@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { DateTime } from 'luxon';
+import {Pipe, PipeTransform} from '@angular/core';
+import {DateTime} from 'luxon';
 
 @Pipe({
   name: 'dateTransform',
@@ -13,7 +13,13 @@ export class DateTransformPipe implements PipeTransform {
   ): string {
     if (!value) return '';
 
-    const localizedDate = DateTime.fromISO(value, { zone: 'utc' }).setLocale('ru').toLocal();
+    let localizedDate: DateTime;
+
+    if (/^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}$/.test(value)) {
+      localizedDate = DateTime.fromFormat(value, 'yyyy-MM-dd HH:mm:ss', {zone: 'utc'}).setZone('local');
+    } else {
+      localizedDate = DateTime.fromISO(value, {zone: 'utc'}).setZone('local');
+    }
 
     if (relative) {
       const diffInSeconds = Math.abs(localizedDate.diffNow('seconds').seconds);
