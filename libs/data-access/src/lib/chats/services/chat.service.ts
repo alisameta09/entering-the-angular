@@ -24,6 +24,7 @@ export class ChatService {
   currentChatId = signal<number | null>(null);
   chatInfo = signal<Record<number, { companion: Profile }>>({});
   unreadMessagesCount = signal(0);
+  unreadMessagesByChat = signal<Record<number, number>>({});
 
   setCurrentChatId(chatId: number) {
     this.currentChatId.set(chatId);
@@ -43,6 +44,11 @@ export class ChatService {
         [chatId]: updatedGroup
       }
     })
+
+    this.unreadMessagesByChat.update(state => ({
+      ...state,
+      [chatId]: 0
+    }))
 
     this.unreadMessagesCount.set(this.calculateUnreadMessages());
   }
@@ -76,9 +82,10 @@ export class ChatService {
     if (isNewMessage(message)) {
       const chatId = message.data.chat_id;
       const isMine = message.data.author === this.me()?.id;
-
       const openedChat = this.currentChatId();
       const companion = this.chatInfo()[chatId].companion;
+      const currentCount = this.unreadMessagesByChat()[chatId] || 0;
+      const newCount = currentCount + 1;
 
       if (!companion) return;
 
@@ -107,6 +114,13 @@ export class ChatService {
           [chatId]: regrouped
         }
       })
+
+      if (chatId !== openedChat) {
+        this.unreadMessagesByChat.update(state => ({
+          ...state,
+          [chatId]: newCount
+        }))
+      }
     }
   }
 

@@ -13,8 +13,8 @@
     <div class="medium-small-text last-message-text__wrapper">
       <span class="last-message-text">{{ chat.message ?? '...' }}</span>
 
-      @if (chat.unreadMessages > 0) {
-        <div class="count-badge">{{ chat.unreadMessages }}</div>
+      @if (unreadMessagesByChat()[chat.id] > 0) {
+        <div class="count-badge">{{ unreadMessagesByChat()[chat.id] }}</div>
       }
     </div>
   </div>
