@@ -3,8 +3,12 @@ import {WebSocketSubject} from 'rxjs/internal/observable/dom/WebSocketSubject';
 import {webSocket} from 'rxjs/webSocket';
 import {finalize, Observable, tap} from 'rxjs';
 import {ChatWSMessage} from "../interfaces/chat-ws-message.interface";
+import {inject} from '@angular/core';
+import {AuthService} from '@tt/data-access/auth';
 
 export class ChatWSRxjsService implements ChatWSService {
+  #authService = inject(AuthService);
+
   #socket: WebSocketSubject<ChatWSMessage> | null = null;
 
   connect(params: ChatConnectionWSParams): Observable<ChatWSMessage> {
@@ -18,12 +22,27 @@ export class ChatWSRxjsService implements ChatWSService {
     return this.#socket.asObservable()
       .pipe(
         tap(message => params.handleMessage(message)),
-        finalize(() => console.log('WebSocket closed'))
+        finalize(() => {
+          console.log('WebSocket closed');
+          this.disconnect(params);
+        })
       );
   }
 
-  disconnect(): void {
-    this.#socket?.complete();
+  disconnect(params: ChatConnectionWSParams): void {
+    this.#authService.refreshAuthToken().subscribe({
+      next: () => {
+        this.#socket?.complete();
+        this.#socket = null;
+
+        this.connect({
+          url: params.url,
+          token: this.#authService.token!,
+          handleMessage: params.handleMessage
+        });
+      },
+      error: () => this.#authService.logout()
+    })
   }
 
   sendMessage(text: string, chatId: number): void {

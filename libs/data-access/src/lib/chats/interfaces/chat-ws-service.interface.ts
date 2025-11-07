@@ -10,5 +10,5 @@ export interface ChatConnectionWSParams {
 export interface ChatWSService {
   connect: (params: ChatConnectionWSParams) => void | Observable<ChatWSMessage>;
   sendMessage: (text: string, chatId: number) => void;
-  disconnect: () => void;
+  disconnect: (params: ChatConnectionWSParams) => void;
 }
