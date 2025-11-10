@@ -13,11 +13,11 @@ import {profileActions, selectFilteredProfiles} from '@tt/data-access/profile';
 import {Store} from '@ngrx/store';
 import {debounceTime, fromEvent} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {InfiniteScrollTriggerComponent} from '@tt/common-ui';
+import {WaIntersectionObservee, WaIntersectionObserverDirective} from '@ng-web-apis/intersection-observer';
 
 @Component({
   selector: 'app-search-page',
-  imports: [ProfileCardComponent, ProfileFiltersComponent, InfiniteScrollTriggerComponent],
+  imports: [ProfileCardComponent, ProfileFiltersComponent, WaIntersectionObserverDirective, WaIntersectionObservee],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -50,5 +50,13 @@ export class SearchPageComponent implements AfterViewInit {
 
   timeToFetch() {
     this.store.dispatch(profileActions.setPage({}));
+  }
+
+  onIntersection(entries: IntersectionObserverEntry[]) {
+    if (!entries.length) return;
+
+    if (entries[0].intersectionRatio > 0) {
+      this.timeToFetch();
+    }
   }
 }
