@@ -1,13 +1,17 @@
 <app-profile-filters></app-profile-filters>
 
-<div class="profile-card__wrapper"
-     waIntersectionObserver
-     waIntersectionThreshold="0.5"
+<div
+  class="profile-card__wrapper"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  [infiniteScrollContainer]="'.profile-card__wrapper'"
+  [fromRoot]="true"
+  (scrolled)="onScroll()"
 >
-  @for (profile of profiles(); track profile.id; let last = $last) {
+  @for (profile of profiles(); track profile.id) {
     <app-profile-card
-    [profile]="profile"
-    (waIntersectionObservee)="last ? onIntersection($event) : null"
-  ></app-profile-card>
+      [profile]="profile"
+    ></app-profile-card>
   }
 </div>
