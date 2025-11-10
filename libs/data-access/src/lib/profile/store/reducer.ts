@@ -2,14 +2,18 @@ import {createFeature, createReducer, on} from '@ngrx/store';
 import {Profile} from '../index';
 import {profileActions} from './actions';
 
-interface ProfileState {
+export interface ProfileState {
   profiles: Profile[],
-  profileFilters: Record<string, any>
+  profileFilters: Record<string, any>,
+  page: number,
+  size: number
 }
 
 const initialState: ProfileState = {
   profiles: [],
-  profileFilters: {}
+  profileFilters: {},
+  page: 1,
+  size: 10
 }
 
 export const profileFeature = createFeature({
@@ -19,13 +23,25 @@ export const profileFeature = createFeature({
     on(profileActions.profilesLoaded, (state, payload) => {
       return {
         ...state,
-        profiles: payload.profiles
+        profiles: state.profiles.concat(payload.profiles)
       }
     }),
     on(profileActions.saveFilter, (state, {filters}) => {
       return {
         ...state,
-        profileFilters: filters
+        profiles: [],
+        profileFilters: filters,
+        page: 1
+      }
+    }),
+    on(profileActions.setPage, (state, payload) => {
+      let page = payload.page;
+
+      if (!page) page = state.page + 1
+
+      return {
+        ...state,
+        page
       }
     })
   )

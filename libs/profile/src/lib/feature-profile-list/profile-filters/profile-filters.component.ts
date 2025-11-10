@@ -31,7 +31,7 @@ export class ProfileFiltersComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((formValue) => {
       this.store.dispatch(profileActions.saveFilter({filters: formValue}));
-      this.store.dispatch(profileActions.filterEvents({filters: formValue}));
+      this.store.dispatch(profileActions.filterProfiles({filters: formValue}));
     });
   }
 
