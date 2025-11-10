@@ -7,4 +7,9 @@
   display: grid;
   grid-gap: 8px;
   background: var(--dark-color);
+  overflow-y: auto;
+}
+
+.profile-card__wrapper::-webkit-scrollbar {
+  display: none;
 }
