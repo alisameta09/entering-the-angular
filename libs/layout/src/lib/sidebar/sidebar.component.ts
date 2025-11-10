@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {SubscriberCardComponent} from './subscriber-card/subscriber-card.component';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
@@ -7,7 +7,6 @@ import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
 import {ProfileService} from '@tt/data-access/profile';
 import {ChatService, isErrorMessage} from '@tt/data-access/chats';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {AuthService} from '@tt/data-access/auth';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,12 +20,12 @@ import {AuthService} from '@tt/data-access/auth';
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent implements OnInit {
   profileService = inject(ProfileService);
   #chatService = inject(ChatService);
   destroyRef = inject(DestroyRef);
-  #authService = inject(AuthService);
 
   subscribers$ = this.profileService.getSubscribersShortList();
 

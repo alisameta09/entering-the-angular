@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, DestroyRef, ElementRef, inject, OnInit, Renderer2} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  OnInit,
+  Renderer2
+} from '@angular/core';
 import {debounceTime, fromEvent} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {postActions, selectFetchedPosts} from '@tt/data-access/posts';
@@ -12,6 +21,7 @@ import {Store} from '@ngrx/store';
   imports: [PostInputComponent, PostComponent],
   templateUrl: './post-feed.component.html',
   styleUrl: './post-feed.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostFeedComponent implements OnInit, AfterViewInit {
   private readonly PADDING = 24 * 2;

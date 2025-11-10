@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, DestroyRef, ElementRef, inject, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  Renderer2
+} from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -86,6 +94,7 @@ function validateDateRange({
   imports: [ReactiveFormsModule, MaskitoDirective, RouterLink, KeyValuePipe],
   templateUrl: './forms-experiment.component.html',
   styleUrl: './forms-experiment.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormsExperimentComponent implements AfterViewInit {
   private readonly PADDING = 24 * 2;

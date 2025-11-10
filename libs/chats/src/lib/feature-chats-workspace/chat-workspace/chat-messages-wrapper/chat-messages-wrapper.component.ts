@@ -9,7 +9,7 @@ import {
   QueryList,
   Renderer2,
   ViewChild,
-  ViewChildren, computed,
+  ViewChildren, computed, ChangeDetectionStrategy,
 } from '@angular/core';
 import {debounceTime, fromEvent} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -22,6 +22,7 @@ import {Chat, ChatService} from '@tt/data-access/chats';
   imports: [ChatMessageComponent, PostInputComponent],
   templateUrl: './chat-messages-wrapper.component.html',
   styleUrl: './chat-messages-wrapper.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatMessagesWrapperComponent implements OnChanges, AfterViewInit {
   private readonly PADDING = 24;
