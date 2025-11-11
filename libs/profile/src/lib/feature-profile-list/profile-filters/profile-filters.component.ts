@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {debounceTime, startWith} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -11,6 +11,7 @@ import {profileActions, selectSaveFilteredProfiles} from '@tt/data-access/profil
   imports: [ReactiveFormsModule, SvgIconComponent],
   templateUrl: './profile-filters.component.html',
   styleUrl: './profile-filters.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileFiltersComponent implements OnInit {
   fb = new FormBuilder();
@@ -30,7 +31,7 @@ export class ProfileFiltersComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((formValue) => {
       this.store.dispatch(profileActions.saveFilter({filters: formValue}));
-      this.store.dispatch(profileActions.filterEvents({filters: formValue}));
+      this.store.dispatch(profileActions.filterProfiles({filters: formValue}));
     });
   }
 

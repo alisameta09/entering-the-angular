@@ -81,13 +81,14 @@ export class ChatService {
 
     if (isNewMessage(message)) {
       const chatId = message.data.chat_id;
-      const isMine = message.data.author === this.me()?.id;
+      const me = this.me();
+      const isMine = message.data.author === me?.id;
       const openedChat = this.currentChatId();
       const companion = this.chatInfo()[chatId].companion;
       const currentCount = this.unreadMessagesByChat()[chatId] || 0;
       const newCount = currentCount + 1;
 
-      if (!companion) return;
+      if (!me || !companion) return;
 
       let newMessage = {
         id: message.data.id,
@@ -97,7 +98,7 @@ export class ChatService {
         createdAt: message.data.created_at,
         isRead: chatId === openedChat,
         isMine,
-        user: isMine ? this.me()! : companion
+        user: isMine ? me! : companion
       }
 
       this.activeChats.update(chats => {

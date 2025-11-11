@@ -1,4 +1,4 @@
-import {Component, inject, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
 import {AvatarCircleComponent, DateTransformPipe} from '@tt/common-ui';
 import {ChatService, LastMessageRes} from '@tt/data-access/chats';
 
@@ -7,6 +7,7 @@ import {ChatService, LastMessageRes} from '@tt/data-access/chats';
   imports: [AvatarCircleComponent, DateTransformPipe],
   templateUrl: './chat-btns.component.html',
   styleUrl: './chat-btns.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatBtnsComponent {
   #chatService = inject(ChatService);

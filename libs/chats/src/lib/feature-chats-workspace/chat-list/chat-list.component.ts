@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { map, startWith, switchMap } from 'rxjs';
@@ -19,6 +19,7 @@ import {ChatService} from '@tt/data-access/chats';
   ],
   templateUrl: './chat-list.component.html',
   styleUrl: './chat-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatListComponent {
   chatService = inject(ChatService);

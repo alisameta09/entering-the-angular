@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {ChatListComponent} from '../chat-list/chat-list.component';
 
@@ -7,5 +7,6 @@ import {ChatListComponent} from '../chat-list/chat-list.component';
   imports: [RouterOutlet, ChatListComponent],
   templateUrl: './chats-page.component.html',
   styleUrl: './chats-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatsPageComponent {}
