@@ -1,0 +1,31 @@
+.skill-tag__container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: var(--light-border);
+  padding: 10px 0;
+  gap: 12px;
+}
+
+.stack-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stack-btn__delete {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.stack-ghost-input {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  font-family: 'JetBrains Mono', sans-serif;
+  color: var(--light-color);
+  background: none;
+  border: none;
+  outline: none;
+}

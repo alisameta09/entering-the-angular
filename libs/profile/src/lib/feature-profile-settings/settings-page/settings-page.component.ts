@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, effect, inject, ViewChild} from '@an
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { RouterLink } from '@angular/router';
-import {SvgIconComponent} from '@tt/common-ui';
+import {StackInputComponent, SvgIconComponent} from '@tt/common-ui';
 import {ProfileHeaderComponent} from '../../ui/profile-header/profile-header.component';
 import {AvatarUploadComponent} from '../../ui/avatar-upload/avatar-upload.component';
 import {ProfileService} from '@tt/data-access/profile';
@@ -15,6 +15,7 @@ import {ProfileService} from '@tt/data-access/profile';
     SvgIconComponent,
     RouterLink,
     AvatarUploadComponent,
+    StackInputComponent,
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss',

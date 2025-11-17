@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: 'lib-infinite-scroll-trigger',
+  selector: 'infinite-scroll-trigger',
   imports: [],
   templateUrl: './infinite-scroll-trigger.component.html',
   styleUrl: './infinite-scroll-trigger.component.scss',
