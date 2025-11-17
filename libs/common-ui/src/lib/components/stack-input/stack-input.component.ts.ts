@@ -1,11 +1,15 @@
-import {Component, forwardRef, signal} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Component, forwardRef, HostListener} from '@angular/core';
+import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {SvgIconComponent} from '../svg-icon/svg-icon.component';
+import {BehaviorSubject} from 'rxjs';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'stack-input',
   imports: [
-    SvgIconComponent
+    SvgIconComponent,
+    AsyncPipe,
+    FormsModule
   ],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
@@ -16,8 +20,24 @@ import {SvgIconComponent} from '../svg-icon/svg-icon.component';
   styleUrl: './stack-input.component.ts.css'
 })
 export class StackInputComponent implements ControlValueAccessor {
+  innerInput = '';
 
-  value = signal<string[]>([]);
+  value$ = new BehaviorSubject<string[]>([]);
+
+  @HostListener('keydown.enter', ['$event'])
+  onEnter(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!this.innerInput) return;
+
+    this.value$.next([
+      ...this.value$.value,
+      this.innerInput
+    ])
+
+    this.innerInput = '';
+  }
 
   writeValue(): void {
 
