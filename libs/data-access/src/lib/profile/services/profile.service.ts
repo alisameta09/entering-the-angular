@@ -33,7 +33,13 @@ export class ProfileService {
   }
 
   patchProfile(profile: Partial<Profile>) {
-    return this.http.patch<Profile>(`${baseApiUrl}account/me`, profile);
+    return this.http.patch<Profile>(`${baseApiUrl}account/me`, profile)
+      .pipe(
+        tap(res => {
+          this.me.set(res);
+          this.#globalStoreService.me.set(res);
+        })
+      )
   }
 
   uploadAvatar(file: File) {
