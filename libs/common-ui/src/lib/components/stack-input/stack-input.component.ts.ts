@@ -61,5 +61,9 @@ export class StackInputComponent implements ControlValueAccessor {
   onTouched() {
   }
 
-
+  onTagDelete(index: number) {
+    const tags = this.value$.value;
+    tags.splice(index, 1);
+    this.value$.next(tags);
+  }
 }

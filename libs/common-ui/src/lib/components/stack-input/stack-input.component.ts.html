@@ -1,8 +1,12 @@
 <div class="skill-tag__container">
 
-  @for (tech of value$ | async; track tech) {
+  @for (tech of value$ | async; track tech; let i = $index) {
     <div class="skill-tag stack-tag">
-      <button class="stack-btn__delete svg16">
+      <button
+        type="button"
+        class="stack-btn__delete svg16"
+        (click)="onTagDelete(i)"
+      >
         <svg class="svg10" icon="cross"></svg>
       </button>
       {{ tech }}
