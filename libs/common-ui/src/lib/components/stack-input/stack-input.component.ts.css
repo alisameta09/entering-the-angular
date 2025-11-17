@@ -29,3 +29,10 @@
   border: none;
   outline: none;
 }
+
+:host.disabled {
+  .skill-tag__container {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

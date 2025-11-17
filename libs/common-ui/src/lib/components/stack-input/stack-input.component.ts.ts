@@ -1,4 +1,4 @@
-import {Component, forwardRef, HostListener} from '@angular/core';
+import {Component, forwardRef, HostBinding, HostListener} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {SvgIconComponent} from '../svg-icon/svg-icon.component';
 import {BehaviorSubject} from 'rxjs';
@@ -21,8 +21,14 @@ import {AsyncPipe} from '@angular/common';
 })
 export class StackInputComponent implements ControlValueAccessor {
   innerInput = '';
+  #disabled = false;
 
   value$ = new BehaviorSubject<string[]>([]);
+
+  @HostBinding('class.disabled')
+  get disabled() {
+    return this.#disabled;
+  }
 
   @HostListener('keydown.enter', ['$event'])
   onEnter(event: Event) {
@@ -58,8 +64,8 @@ export class StackInputComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  setDisabledState(): void {
-
+  setDisabledState(isDisabled: boolean): void {
+    this.#disabled = isDisabled;
   }
 
   onChange(value: string[] | null) {
