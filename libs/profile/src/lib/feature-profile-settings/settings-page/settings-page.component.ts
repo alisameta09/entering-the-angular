@@ -55,8 +55,7 @@ export class SettingsPageComponent implements AfterViewInit {
     effect(() => {
       // @ts-ignore
       this.form.patchValue({
-        ...this.profileService.me(),
-        stack: this.mergeStack(this.profileService.me()?.stack),
+        ...this.profileService.me()
       });
     });
   }
@@ -83,24 +82,9 @@ export class SettingsPageComponent implements AfterViewInit {
     firstValueFrom(
       // @ts-ignore
       this.profileService.patchProfile({
-        ...this.form.value,
-        stack: this.splitStack(this.form.value.stack),
+        ...this.form.value
       })
     );
-  }
-
-  splitStack(stack: string | null | string[] | undefined): string[] {
-    if (!stack) return [];
-    if (Array.isArray(stack)) return stack;
-
-    return stack.split(',');
-  }
-
-  mergeStack(stack: string | null | string[] | undefined): string {
-    if (!stack) return '';
-    if (Array.isArray(stack)) return stack.join(',');
-
-    return stack;
   }
 
   resizeSettingPage() {

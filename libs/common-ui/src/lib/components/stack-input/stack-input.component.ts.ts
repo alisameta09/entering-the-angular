@@ -39,8 +39,14 @@ export class StackInputComponent implements ControlValueAccessor {
     this.innerInput = '';
   }
 
-  writeValue(): void {
+  writeValue(stack: string[] | null): void {
 
+    if (!stack) {
+      this.value$.next([]);
+      return;
+    }
+
+    this.value$.next(stack);
   }
 
   registerOnChange(fn: any): void {
