@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {debounceTime, firstValueFrom, fromEvent} from 'rxjs';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {StackInputComponent, SvgIconComponent} from '@tt/common-ui';
 import {ProfileHeaderComponent} from '../../ui/profile-header/profile-header.component';
 import {AvatarUploadComponent} from '../../ui/avatar-upload/avatar-upload.component';
@@ -40,6 +40,7 @@ export class SettingsPageComponent implements AfterViewInit {
   hostElement = inject(ElementRef);
   r2 = inject(Renderer2);
   destroyRef = inject(DestroyRef);
+  router = inject(Router);
 
   @ViewChild(AvatarUploadComponent) avatarUploader!: AvatarUploadComponent;
 
@@ -68,7 +69,9 @@ export class SettingsPageComponent implements AfterViewInit {
       .subscribe(() => this.resizeSettingPage());
   }
 
-  onSave() {
+  onSave(event: Event) {
+    event.preventDefault();
+
     this.form.markAllAsTouched();
     this.form.updateValueAndValidity();
 
@@ -78,13 +81,14 @@ export class SettingsPageComponent implements AfterViewInit {
       firstValueFrom(this.profileService.uploadAvatar(this.avatarUploader.avatar));
     }
 
-
     firstValueFrom(
       // @ts-ignore
       this.profileService.patchProfile({
         ...this.form.value
       })
     );
+
+    this.router.navigate(['/profile/me']);
   }
 
   resizeSettingPage() {
