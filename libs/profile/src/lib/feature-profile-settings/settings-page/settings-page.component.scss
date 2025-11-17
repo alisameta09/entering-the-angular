@@ -9,10 +9,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid var(--light-color);
+  border: var(--light-border);
   background: var(--dark-color);
   padding: 32px;
-  height: 100dvh;
 }
 
 .profile-form {

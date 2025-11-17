@@ -1,6 +1,6 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component, forwardRef, signal} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import { SvgIconComponent } from '../svg-icon/svg-icon.component';
+import {SvgIconComponent} from '../svg-icon/svg-icon.component';
 
 @Component({
   selector: 'stack-input',
@@ -16,6 +16,9 @@ import { SvgIconComponent } from '../svg-icon/svg-icon.component';
   styleUrl: './stack-input.component.ts.css'
 })
 export class StackInputComponent implements ControlValueAccessor {
+
+  value = signal<string[]>([]);
+
   writeValue(): void {
 
   }
@@ -37,5 +40,6 @@ export class StackInputComponent implements ControlValueAccessor {
 
   onTouched() {
   }
+
 
 }
