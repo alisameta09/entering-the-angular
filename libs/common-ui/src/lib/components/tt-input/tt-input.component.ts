@@ -1,16 +1,39 @@
-import {Component, input} from '@angular/core';
-import {SvgIconComponent} from '@tt/common-ui';
+import {Component, forwardRef, input} from '@angular/core';
+import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {SvgIconComponent} from '../svg-icon/svg-icon.component';
 
 @Component({
   selector: 'tt-input',
   imports: [
-    SvgIconComponent
+    SvgIconComponent,
+    FormsModule
   ],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    multi: true,
+    useExisting: forwardRef(() => TtInputComponent)
+  }],
   templateUrl: './tt-input.component.html',
   styleUrl: './tt-input.component.css'
 })
-export class TtInputComponent {
+export class TtInputComponent implements ControlValueAccessor {
   type = input<'text' | 'password'>('text');
   placeholder = input<string>();
+
+  onChange: any
+
+  writeValue(value: string | null): void {
+    console.log(value);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+  }
 
 }
