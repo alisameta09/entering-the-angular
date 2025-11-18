@@ -3,4 +3,8 @@
   [showSvg]="false"
 ></tt-input>
 
-<pre>{{ suggestions$ | async | json }}</pre>
+@if (suggestions$ | async; as suggestions) {
+  @for (suggest of suggestions; track suggest) {
+    <span>{{ suggest.data.city }}</span>
+  }
+}

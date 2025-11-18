@@ -3,15 +3,14 @@ import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModul
 import {TtInputComponent} from '../tt-input/tt-input.component';
 import {debounceTime, switchMap} from 'rxjs';
 import {DadataService} from '@tt/data-access/profile';
-import {AsyncPipe, JsonPipe} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'address-input',
   imports: [
     TtInputComponent,
     ReactiveFormsModule,
-    AsyncPipe,
-    JsonPipe
+    AsyncPipe
   ],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
