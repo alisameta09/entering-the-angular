@@ -2,7 +2,11 @@
   <ng-content></ng-content>
 
   <div class="username-input">
-    <input class="tt-input" type="text" placeholder="Введите логин" formControlName="username" />
+    <input
+      class="tt-input"
+      [type]="type()"
+      [placeholder]="placeholder()"
+    />
     <button class="username-telegram-btn" type="button">
       <svg icon="telegram" class="svg20">
 

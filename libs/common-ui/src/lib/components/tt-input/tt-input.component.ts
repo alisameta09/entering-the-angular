@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, input} from '@angular/core';
 import {SvgIconComponent} from '@tt/common-ui';
 
 @Component({
@@ -10,5 +10,7 @@ import {SvgIconComponent} from '@tt/common-ui';
   styleUrl: './tt-input.component.css'
 })
 export class TtInputComponent {
+  type = input<'text' | 'password'>('text');
+  placeholder = input<string>();
 
 }
