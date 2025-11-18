@@ -12,7 +12,7 @@ import {
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {debounceTime, firstValueFrom, fromEvent} from 'rxjs';
 import {Router, RouterLink} from '@angular/router';
-import {StackInputComponent, SvgIconComponent} from '@tt/common-ui';
+import {AddressInputComponent, StackInputComponent, SvgIconComponent} from '@tt/common-ui';
 import {ProfileHeaderComponent} from '../../ui/profile-header/profile-header.component';
 import {AvatarUploadComponent} from '../../ui/avatar-upload/avatar-upload.component';
 import {ProfileService} from '@tt/data-access/profile';
@@ -27,6 +27,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     RouterLink,
     AvatarUploadComponent,
     StackInputComponent,
+    AddressInputComponent,
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss',
@@ -50,6 +51,7 @@ export class SettingsPageComponent implements AfterViewInit {
     username: [{value: '', disabled: true}, [Validators.required]],
     description: [''],
     stack: [''],
+    city: [null]
   });
 
   constructor() {
