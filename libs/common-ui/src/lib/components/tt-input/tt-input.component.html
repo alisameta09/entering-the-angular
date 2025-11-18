@@ -6,6 +6,8 @@
       class="tt-input"
       [type]="type()"
       [placeholder]="placeholder()"
+      [ngModel]="value"
+      (ngModelChange)="onModelChange($event)"
     />
     <button class="username-telegram-btn" type="button">
       <svg icon="telegram" class="svg20">

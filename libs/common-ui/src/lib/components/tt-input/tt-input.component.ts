@@ -17,6 +17,8 @@ import {SvgIconComponent} from '../svg-icon/svg-icon.component';
   styleUrl: './tt-input.component.css'
 })
 export class TtInputComponent implements ControlValueAccessor {
+  value: string | null = null;
+
   type = input<'text' | 'password'>('text');
   placeholder = input<string>();
 
@@ -34,6 +36,10 @@ export class TtInputComponent implements ControlValueAccessor {
   }
 
   setDisabledState?(isDisabled: boolean): void {
+  }
+
+  onModelChange(val: string | null): void {
+    this.onChange(val);
   }
 
 }
