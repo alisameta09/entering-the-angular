@@ -25,7 +25,9 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     this.form.valueChanges.subscribe(change => {
       console.log(change);
-    })
+    });
+
+    // this.form.controls.username.disable()
   }
 
   onSubmit() {

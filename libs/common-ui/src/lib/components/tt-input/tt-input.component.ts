@@ -1,4 +1,4 @@
-import {Component, forwardRef, input} from '@angular/core';
+import {Component, forwardRef, input, signal} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {SvgIconComponent} from '../svg-icon/svg-icon.component';
 
@@ -19,6 +19,8 @@ import {SvgIconComponent} from '../svg-icon/svg-icon.component';
 export class TtInputComponent implements ControlValueAccessor {
   value: string | null = null;
 
+  disabled = signal<boolean>(false);
+
   type = input<'text' | 'password'>('text');
   placeholder = input<string>();
 
@@ -37,11 +39,11 @@ export class TtInputComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 
   onModelChange(val: string | null): void {
     this.onChange(val);
   }
-
 }

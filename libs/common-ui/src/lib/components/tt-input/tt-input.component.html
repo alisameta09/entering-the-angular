@@ -9,11 +9,10 @@
       [ngModel]="value"
       (ngModelChange)="onModelChange($event)"
       (blur)="onTouched()"
+      [disabled]="disabled()"
     />
     <button class="username-telegram-btn" type="button">
-      <svg icon="telegram" class="svg20">
-
-      </svg>
+      <svg icon="telegram" class="svg20"></svg>
     </button>
   </div>
 </label>
