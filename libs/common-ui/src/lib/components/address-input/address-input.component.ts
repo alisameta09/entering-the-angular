@@ -1,9 +1,13 @@
 import {Component, forwardRef} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
+import {TtInputComponent} from '../tt-input/tt-input.component';
 
 @Component({
   selector: 'address-input',
-  imports: [],
+  imports: [
+    TtInputComponent,
+    ReactiveFormsModule
+  ],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     multi: true,
@@ -13,6 +17,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
   styleUrl: './address-input.component.css'
 })
 export class AddressInputComponent implements ControlValueAccessor {
+  innerSearchControl = new FormControl();
 
   onChange(value: any) {
   }

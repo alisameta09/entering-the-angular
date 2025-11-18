@@ -12,7 +12,9 @@
       [disabled]="disabled()"
     />
     <button class="username-telegram-btn" type="button">
-      <svg icon="telegram" class="svg20"></svg>
+      @if (showSvg === true) {
+        <svg icon="telegram" class="svg20"></svg>
+      }
     </button>
   </div>
 </label>

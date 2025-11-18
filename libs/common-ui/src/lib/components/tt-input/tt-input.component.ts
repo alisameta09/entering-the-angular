@@ -1,4 +1,4 @@
-import {Component, forwardRef, input, signal} from '@angular/core';
+import {Component, forwardRef, Input, input, signal} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {SvgIconComponent} from '../svg-icon/svg-icon.component';
 
@@ -17,6 +17,7 @@ import {SvgIconComponent} from '../svg-icon/svg-icon.component';
   styleUrl: './tt-input.component.css'
 })
 export class TtInputComponent implements ControlValueAccessor {
+  @Input() showSvg = true;
   value: string | null = null;
 
   disabled = signal<boolean>(false);
