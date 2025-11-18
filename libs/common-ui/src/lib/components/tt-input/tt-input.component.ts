@@ -23,6 +23,7 @@ export class TtInputComponent implements ControlValueAccessor {
   placeholder = input<string>();
 
   onChange: any
+  onTouched: any
 
   writeValue(value: string | null): void {
     this.value = value;
@@ -33,6 +34,7 @@ export class TtInputComponent implements ControlValueAccessor {
   }
 
   registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
