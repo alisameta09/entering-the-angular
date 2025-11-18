@@ -18,7 +18,7 @@ export class LoginPageComponent implements OnInit {
   isPasswordVisible = signal<boolean>(false);
 
   form = new FormGroup({
-    username: new FormControl<string | null>(null, Validators.required),
+    username: new FormControl<string | null>('username', Validators.required),
     password: new FormControl<string | null>(null, Validators.required),
   });
 

@@ -25,7 +25,7 @@ export class TtInputComponent implements ControlValueAccessor {
   onChange: any
 
   writeValue(value: string | null): void {
-    console.log(value);
+    this.value = value;
   }
 
   registerOnChange(fn: any): void {
