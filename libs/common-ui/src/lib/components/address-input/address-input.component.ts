@@ -1,7 +1,7 @@
-import {Component, forwardRef, inject} from '@angular/core';
+import {Component, forwardRef, inject, signal} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 import {TtInputComponent} from '../tt-input/tt-input.component';
-import {debounceTime, switchMap} from 'rxjs';
+import {debounceTime, switchMap, tap} from 'rxjs';
 import {DadataService} from '@tt/data-access/profile';
 import {AsyncPipe} from '@angular/common';
 
@@ -25,10 +25,16 @@ export class AddressInputComponent implements ControlValueAccessor {
 
   #dadataService = inject(DadataService);
 
+  isDropdownOpened = signal<boolean>(true);
+
   suggestions$ = this.innerSearchControl.valueChanges
     .pipe(
       debounceTime(500),
-      switchMap(val => this.#dadataService.getSuggestion(val))
+      switchMap(val => this.#dadataService.getSuggestion(val)
+        .pipe(
+          tap(res => this.isDropdownOpened.set(!!res.length))
+        )
+      )
     )
 
   onChange(value: any) {

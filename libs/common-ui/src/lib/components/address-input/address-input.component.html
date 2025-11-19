@@ -4,7 +4,11 @@
 ></tt-input>
 
 @if (suggestions$ | async; as suggestions) {
-  @for (suggest of suggestions; track suggest) {
-    <span>{{ suggest.data.city }}</span>
+  @if (isDropdownOpened()) {
+    <div class="suggestions-dropdown">
+      @for (suggest of suggestions; track suggest) {
+        <button class="suggest-btn">{{ suggest.data.city }}</button>
+      }
+    </div>
   }
 }
