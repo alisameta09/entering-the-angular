@@ -37,13 +37,20 @@ export class AddressInputComponent implements ControlValueAccessor {
       )
     )
 
+  onSuggestionPick(city: string) {
+    this.onChange(city);
+    this.innerSearchControl.patchValue(city, {emitEvent: false});
+    this.isDropdownOpened.set(false);
+  }
+
   onChange(value: any) {
   }
 
   onTouched() {
   }
 
-  writeValue(obj: any): void {
+  writeValue(city: string | null): void {
+    this.innerSearchControl.patchValue(city, {emitEvent: false});
   }
 
   registerOnChange(fn: any): void {
