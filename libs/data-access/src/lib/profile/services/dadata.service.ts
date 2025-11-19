@@ -13,11 +13,24 @@ export class DadataService {
   #http = inject(HttpClient);
 
   getSuggestion(query: string) {
-    return this.#http.post<{ suggestions: DadataSuggestion[] }>(this.#apiUrl, {query}, {
-      headers: {Authorization: `Token ${DADATA_TOKEN}`}
-    })
+    return this.#http.post<{ suggestions: DadataSuggestion[] }>(
+      this.#apiUrl,
+      {query},
+      {headers: {Authorization: `Token ${DADATA_TOKEN}`}}
+    )
       .pipe(
-        map(res => res.suggestions)
+        map(res => {
+            const uniqueAddress = new Set();
+
+            return res.suggestions.filter(suggestion => {
+              const key = `${suggestion.data.city} | ${suggestion.data.street} | ${suggestion.data.house}`;
+
+              if (uniqueAddress.has(key)) return false;
+              uniqueAddress.add(key);
+              return true;
+            })
+          }
+        )
       )
   }
 }
