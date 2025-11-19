@@ -90,7 +90,7 @@ export class SettingsPageComponent implements AfterViewInit {
       })
     );
 
-    this.router.navigate(['/profile/me']);
+    // this.router.navigate(['/profile/me']);
   }
 
   resizeSettingPage() {

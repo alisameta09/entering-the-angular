@@ -17,11 +17,7 @@ export class DadataService {
       headers: {Authorization: `Token ${DADATA_TOKEN}`}
     })
       .pipe(
-        map(res => Array.from(
-          new Set(res.suggestions
-            .map(suggestion => suggestion.data.city)
-          ))
-        )
+        map(res => res.suggestions)
       )
   }
 }

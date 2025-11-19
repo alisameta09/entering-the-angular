@@ -4,6 +4,7 @@
 
 .suggestions-dropdown {
   position: absolute;
+  z-index: 1;
   background: var(--dark-hover-color);
   padding: 6px;
   display: flex;
@@ -26,4 +27,8 @@
     background: var(--primary-color);
     color: var(--dark-color);
   }
+}
+
+.address-container {
+  position: relative;
 }
