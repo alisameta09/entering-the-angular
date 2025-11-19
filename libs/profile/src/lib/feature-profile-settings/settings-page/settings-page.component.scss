@@ -12,6 +12,11 @@
   border: var(--light-border);
   background: var(--dark-color);
   padding: 32px;
+  overflow: auto;
+}
+
+.profile-form__wrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .profile-form {
