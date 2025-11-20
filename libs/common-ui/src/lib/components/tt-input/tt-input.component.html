@@ -1,0 +1,20 @@
+<label class="tt-control-label mb16">
+  <ng-content></ng-content>
+
+  <div class="username-input">
+    <input
+      class="tt-input"
+      [type]="type()"
+      [placeholder]="placeholder()"
+      [ngModel]="value"
+      (ngModelChange)="onModelChange($event)"
+      (blur)="onTouched()"
+      [disabled]="disabled()"
+    />
+    <button class="username-telegram-btn" type="button">
+      @if (showSvg === true) {
+        <svg icon="telegram" class="svg20"></svg>
+      }
+    </button>
+  </div>
+</label>

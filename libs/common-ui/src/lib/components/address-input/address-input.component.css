@@ -1,0 +1,48 @@
+:host {
+  position: relative;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  z-index: 1;
+  background: var(--dark-hover-color);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.suggest-btn {
+  background: none;
+  border: none;
+  color: var(--light-color);
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  font-family: "JetBrains Mono", sans-serif;
+  border-radius: 2px;
+
+  &:hover {
+    background: var(--primary-color);
+    color: var(--dark-color);
+  }
+}
+
+.address-container {
+  position: relative;
+}
+
+.search-by-address {
+  display: grid;
+  position: relative;
+  align-items: center;
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 10px;
+  top: 24px;
+}

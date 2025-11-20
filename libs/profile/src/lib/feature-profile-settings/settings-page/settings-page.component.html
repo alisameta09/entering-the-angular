@@ -10,7 +10,7 @@
           class="tt-form-input"
           formControlName="firstName"
           placeholder="Введите данные"
-      /></label>
+        /></label>
 
       <label class="tt-form-label">
         <span class="tt-form-label__text">Фамилия</span>
@@ -19,7 +19,7 @@
           class="tt-form-input"
           formControlName="lastName"
           placeholder="Введите данные"
-      /></label>
+        /></label>
     </div>
 
     <label class="tt-form-label">
@@ -29,7 +29,7 @@
         class="tt-form-input"
         formControlName="username"
         placeholder="Введите данные"
-    /></label>
+      /></label>
 
     <label class="tt-form-label">
       <span class="tt-form-label__text">О себе</span>
@@ -48,13 +48,10 @@
 
     <label class="tt-form-label">
       <span class="tt-form-label__text">Навыки</span>
-      <input
-        type="text"
-        class="tt-form-input"
-        formControlName="stack"
-        placeholder="Введите данные"
-      />
     </label>
+    <stack-input formControlName="stack"></stack-input>
+
+    <address-input formControlName="city"></address-input>
   </div>
 
   <div class="footer__wrapper">
@@ -69,7 +66,7 @@
 
     <div class="btn__wrapper">
       <a class="btn cancel-btn" [routerLink]="['/profile/me']">Отмена</a>
-      <button class="btn save-btn" (click)="onSave()">Сохранить</button>
+      <button class="btn save-btn" (click)="onSave($event)">Сохранить</button>
     </div>
   </div>
 </form>

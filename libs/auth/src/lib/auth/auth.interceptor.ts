@@ -6,6 +6,8 @@ import {AuthService} from '@tt/data-access/auth';
 let isRefreshing$ = new BehaviorSubject<boolean>(false);
 
 export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
+  if (req.url.includes('dadata.ru')) return next(req);
+
   const authService = inject(AuthService);
   const token = authService.token;
 
