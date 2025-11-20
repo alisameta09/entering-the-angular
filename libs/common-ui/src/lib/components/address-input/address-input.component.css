@@ -32,3 +32,17 @@
 .address-container {
   position: relative;
 }
+
+.search-by-address {
+  display: grid;
+  position: relative;
+  align-items: center;
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 10px;
+  top: 24px;
+}

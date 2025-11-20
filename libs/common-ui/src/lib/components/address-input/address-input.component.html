@@ -1,8 +1,11 @@
-<tt-input
-  [formControl]="innerSearchControl"
-  [showSvg]="false"
-  placeholder="Введите город"
-></tt-input>
+<div class="search-by-address">
+  <tt-input
+    [formControl]="innerSearchControl"
+    [showSvg]="false"
+    placeholder="Введите город"
+  ></tt-input>
+  <svg icon="search" class="search-icon"></svg>
+</div>
 
 @if (suggestions$ | async; as suggestions) {
   @if (isDropdownOpened()) {
@@ -19,7 +22,7 @@
 }
 
 <div [formGroup]="addressForm" class="address-container">
-  <tt-input formControlName="city" [showSvg]="false">Город</tt-input>
-  <tt-input formControlName="street" [showSvg]="false">Улица</tt-input>
-  <tt-input formControlName="house" [showSvg]="false">Дом</tt-input>
+  <tt-input formControlName="city" [showSvg]="false" placeholder="Город">Город</tt-input>
+  <tt-input formControlName="street" [showSvg]="false" placeholder="Улица">Улица</tt-input>
+  <tt-input formControlName="house" [showSvg]="false" placeholder="Дом">Дом</tt-input>
 </div>

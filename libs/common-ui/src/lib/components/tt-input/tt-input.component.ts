@@ -1,4 +1,13 @@
-import {Component, forwardRef, Input, input, signal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  forwardRef,
+  inject,
+  Input,
+  input,
+  signal
+} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {SvgIconComponent} from '../svg-icon/svg-icon.component';
 
@@ -13,12 +22,15 @@ import {SvgIconComponent} from '../svg-icon/svg-icon.component';
     multi: true,
     useExisting: forwardRef(() => TtInputComponent)
   }],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './tt-input.component.html',
   styleUrl: './tt-input.component.css'
 })
 export class TtInputComponent implements ControlValueAccessor {
   @Input() showSvg = true;
   value: string | null = null;
+
+  cdr = inject(ChangeDetectorRef);
 
   disabled = signal<boolean>(false);
 
@@ -30,6 +42,7 @@ export class TtInputComponent implements ControlValueAccessor {
 
   writeValue(value: string | null): void {
     this.value = value;
+    this.cdr.detectChanges();
   }
 
   registerOnChange(fn: any): void {
@@ -46,5 +59,6 @@ export class TtInputComponent implements ControlValueAccessor {
 
   onModelChange(val: string | null): void {
     this.onChange(val);
+    this.cdr.detectChanges();
   }
 }
