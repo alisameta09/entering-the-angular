@@ -32,15 +32,13 @@ export class AuthService {
     fd.append('username', payload.username);
     fd.append('password', payload.password);
 
-    return this.http
-      .post<TokenResponse>(`${authUrl}token`, fd)
+    return this.http.post<TokenResponse>(`${authUrl}token`, fd)
       .pipe(tap((val) => this.saveTokens(val)));
   }
 
   refreshAuthToken() {
-    return this.http
-      .post<TokenResponse>(`${authUrl}refresh`, {
-        refresh_token: this.refreshToken,
+    return this.http.post<TokenResponse>(`${authUrl}refresh`, {
+      refresh_token: this.refreshToken,
       })
       .pipe(
         tap((val) => this.saveTokens(val)),

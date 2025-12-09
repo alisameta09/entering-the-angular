@@ -55,8 +55,6 @@ const refreshAndProceed = (
 
 const addToken = (req: HttpRequest<any>, token: string) => {
   return req.clone({
-    setHeaders: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
+    setHeaders: {Authorization: `Bearer ${token}`}
+  })
+}
